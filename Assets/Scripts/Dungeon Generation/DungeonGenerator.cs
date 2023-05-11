@@ -4,27 +4,90 @@ using UnityEngine;
 
 public class DungeonGenerator : MonoBehaviour
 {
-    public int startPos = 0;
-    public List<GameObject> rooms;
-    public Vector2 offset;
-
-    public Vector2 roomPos;
+    public GameObject[] rooms;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateRoom(roomPos);
+        GenerateDungeon();
     }
 
-    void CreateRoom(Vector2 position)
+    RoomBehaviour CreateRoom(Vector3 position, Quaternion rotation, GameObject room)
     {
-        var randomRoom = rooms[Random.Range(0, rooms.Count)];
-        var roomScript = randomRoom.GetComponent<RoomBehaviour>();
-        var randomEntrance = roomScript.doors[Random.Range(0, roomScript.doors.Length)];
-        //todo change [0] to enum x
-        var newRoom = Instantiate(randomRoom, new Vector3(randomEntrance.transform.position.x, 0, randomEntrance.transform.position.z), Quaternion.identity, transform).GetComponent<RoomBehaviour>();
+        var roomScript = room.GetComponent<RoomBehaviour>();
+        var newRoom = Instantiate(room, new Vector3(position.x, position.y, position.z), rotation, transform).GetComponent<RoomBehaviour>();
+        newRoom.UpdateRoom();
+        return newRoom;
     }
+
+
+    void CreateRoomTest()
+    {
+
+    }
+
+    void GenerateDungeon()
+    {
+        var pos = new Vector3(20, 0, 20);
+        var room1 = CreateRoom(pos, new Quaternion(0, 0, 0, 0), rooms[0]);
+
+        Transform entranceTransform = room1.entrances[0].transform;
+
+        //place room at position of entrance
+
+        Vector3 pos2 = new Vector3(entranceTransform.position.x, entranceTransform.position.y, entranceTransform.position.z);
+        var room2 = CreateRoom(pos2, entranceTransform.rotation, rooms[1]);
+
+        var randomExit = room2.entrances[Random.Range(0, room2.entrances.Length)];
+
+        Transform entranceTransform2 = room2.entrances[2].transform;
+        Transform exitTransform = randomExit.transform;
+
+        //move room contents object so that coords are the same as the entrance position this should move the whole room to the correct position
+
+        room2.roomContents.transform.localPosition = new Vector3(-entranceTransform2.localPosition.x, entranceTransform.localPosition.y, -entranceTransform2.localPosition.z);
+
+        var randomRoom = rooms[Random.Range(0, rooms.Length)];
+
+        Vector3 pos3 = new Vector3(exitTransform.position.x, exitTransform.position.y, exitTransform.position.z);
+
+        var room3 = CreateRoom(pos3, entranceTransform.rotation, randomRoom);
+
+        Transform entranceTransform3 = room3.entrances[2].transform;
+
+        switch (exitTransform.eulerAngles.y)
+        {
+            case (0):
+                room3.roomContents.transform.localPosition = new Vector3(-entranceTransform3.localPosition.x, entranceTransform3.localPosition.y, -entranceTransform3.localPosition.z);
+                room3.roomContents.transform.Rotate(exitTransform.eulerAngles);
+                Debug.Log("0");
+                break;
+            case (90):
+                room3.roomContents.transform.localPosition = new Vector3(-entranceTransform3.localPosition.z, entranceTransform3.localPosition.y, entranceTransform3.localPosition.x);
+                room3.roomContents.transform.Rotate(exitTransform.eulerAngles);
+                Debug.Log("90");
+                break;
+            case (180):
+                break;
+                /*
+                room3.roomContents.transform.localPosition = new Vector3(entranceTransform3.localPosition.x, entranceTransform3.localPosition.y, entranceTransform3.localPosition.z);
+                room3.roomContents.transform.Rotate(exitTransform.eulerAngles);
+                Debug.Log("180");
+                break;
+                */
+            case (270):
+                room3.roomContents.transform.localPosition = new Vector3(entranceTransform3.localPosition.z, entranceTransform3.localPosition.y, -entranceTransform3.localPosition.x);
+                room3.roomContents.transform.Rotate(exitTransform.eulerAngles);
+                Debug.Log("270");
+                break;
+        }
+
+
+
+    }
+
+
 
     /*
     void GenerateDungeon()
