@@ -69,13 +69,11 @@ public class DungeonGenerator : MonoBehaviour
                 Debug.Log("90");
                 break;
             case (180):
-                break;
-                /*
                 room3.roomContents.transform.localPosition = new Vector3(entranceTransform3.localPosition.x, entranceTransform3.localPosition.y, entranceTransform3.localPosition.z);
                 room3.roomContents.transform.Rotate(exitTransform.eulerAngles);
                 Debug.Log("180");
                 break;
-                */
+                
             case (270):
                 room3.roomContents.transform.localPosition = new Vector3(entranceTransform3.localPosition.z, entranceTransform3.localPosition.y, -entranceTransform3.localPosition.x);
                 room3.roomContents.transform.Rotate(exitTransform.eulerAngles);
