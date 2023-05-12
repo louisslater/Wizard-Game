@@ -6,6 +6,7 @@ public class DungeonGenerator : MonoBehaviour
 {
     public GameObject[] rooms;
     public List<GameObject> roomClones = new List<GameObject>();
+    public RoomEntranceMap roomEntranceMap = new RoomEntranceMap();
 
     // Start is called before the first frame update
     void Start()
@@ -31,18 +32,25 @@ public class DungeonGenerator : MonoBehaviour
     {
         GenerateFirstRoom();
 
-        for(int i = 0; i < 10; i ++)
+        for(int i = 0; i < 30; i ++)
         {
             //source room
+            /*
             var roomIndex = Random.Range(0, roomClones.Count);
             var room = roomClones[roomIndex];
             var roomBehaviour = room.GetComponent<RoomBehaviour>();
             var entranceIndex = Random.Range(1, roomBehaviour.entrances.Length);// Random.Range(0, rooms[0].entrances.Length);
+            */
+            var roomEntrance = roomEntranceMap.PullRandomRoomEntrance();
             var roomTemplateIndex = Random.Range(0, rooms.Length);
+            
             // return room1.entrances[0].GetComponent<Entrance>().roomlink;
 
-            var newRoom = GenerateRoom(roomIndex, entranceIndex, roomTemplateIndex);
-            roomClones.Add(newRoom);
+            var newRoom = GenerateRoom(roomEntrance, roomTemplateIndex);
+            Debug.Log(roomEntrance.Key);
+            AddRoom(newRoom);
+            
+
         }
     }
 
@@ -53,14 +61,21 @@ public class DungeonGenerator : MonoBehaviour
         //room1
         var pos = new Vector3(20, 0, 20);
         var room = CreateRoom(pos, new Quaternion(0, 0, 0, 0), rooms[0]);
-        roomClones.Add(room);        
+        AddRoom(room);     
+    }
+
+    void AddRoom(GameObject room)
+    {
+        roomClones.Add(room);
+        roomEntranceMap.AddRoom(roomClones.Count-1, room.GetComponent<RoomBehaviour>().entrances.Length);
+        roomEntranceMap.RemoveEntrance(roomClones.Count - 1, 0);
     }
 
 
-    GameObject GenerateRoom(int roomIndex, int entranceIndex, int roomTemplateIndex)
+    GameObject GenerateRoom(RoomEntrance roomEntrance, int roomTemplateIndex)
     {
-        var sourceRoom = roomClones[roomIndex];
-        var sourceEntrance = sourceRoom.GetComponent<RoomBehaviour>().entrances[entranceIndex];
+        var sourceRoom = roomClones[roomEntrance.roomIndex];
+        var sourceEntrance = sourceRoom.GetComponent<RoomBehaviour>().entrances[roomEntrance.entranceIndex];
         var sourceTransform = sourceEntrance.transform;
 
         var templateRoom = rooms[roomTemplateIndex];
