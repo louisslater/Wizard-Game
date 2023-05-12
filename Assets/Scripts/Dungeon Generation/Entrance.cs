@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Entrance : MonoBehaviour
 {
+    public int roomlink { get; set; }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
