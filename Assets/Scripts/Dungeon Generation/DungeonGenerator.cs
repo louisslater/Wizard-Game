@@ -31,13 +31,19 @@ public class DungeonGenerator : MonoBehaviour
     {
         GenerateFirstRoom();
 
-        var roomIndex = 0;//Random.Range(0, roomClones.Length);
-        var entranceIndex = 1;// Random.Range(0, rooms[0].entrances.Length);
-        // return room1.entrances[0].GetComponent<Entrance>().roomlink;
+        for(int i = 0; i < 10; i ++)
+        {
+            //source room
+            var roomIndex = Random.Range(0, roomClones.Count);
+            var room = roomClones[roomIndex];
+            var roomBehaviour = room.GetComponent<RoomBehaviour>();
+            var entranceIndex = Random.Range(1, roomBehaviour.entrances.Length);// Random.Range(0, rooms[0].entrances.Length);
+            var roomTemplateIndex = Random.Range(0, rooms.Length);
+            // return room1.entrances[0].GetComponent<Entrance>().roomlink;
 
-        GenerateRoom(roomIndex, 1);
-        GenerateRoom(roomIndex, 2);
-        GenerateRoom(roomIndex, 3);
+            var newRoom = GenerateRoom(roomIndex, entranceIndex, roomTemplateIndex);
+            roomClones.Add(newRoom);
+        }
     }
 
 
@@ -51,17 +57,21 @@ public class DungeonGenerator : MonoBehaviour
     }
 
 
-    GameObject GenerateRoom(int roomIndex, int entranceIndex)
+    GameObject GenerateRoom(int roomIndex, int entranceIndex, int roomTemplateIndex)
     {
         var sourceRoom = roomClones[roomIndex];
         var sourceEntrance = sourceRoom.GetComponent<RoomBehaviour>().entrances[entranceIndex];
         var sourceTransform = sourceEntrance.transform;
 
+        var templateRoom = rooms[roomTemplateIndex];
+        var templateEntrance = templateRoom.GetComponent<RoomBehaviour>().entrances[0];
+        var templateTransform = templateEntrance.transform;
+
         Vector3 pos = new Vector3(sourceTransform.position.x, sourceTransform.position.y, sourceTransform.position.z);
 
-        var targetRoom = CreateRoom(pos, new Quaternion(0,0,0,0), sourceRoom);
+        var targetRoom = CreateRoom(pos, sourceTransform.rotation, templateRoom);
         var targetTransform = targetRoom.GetComponent<RoomBehaviour>().roomContents.transform;
-        targetTransform.localPosition = GetLocalPosition(sourceTransform);
+        targetTransform.localPosition = GetLocalPosition(templateTransform);
         return targetRoom;
     }
 
@@ -71,15 +81,13 @@ public class DungeonGenerator : MonoBehaviour
         switch (transform.eulerAngles.y)
         {
             case (0):
-                //transform.Rotate(new Vector3(0,180,0));
-                return new Vector3(-localPosition.x, localPosition.y, -localPosition.z);
+                return new Vector3(localPosition.x, localPosition.y, localPosition.z);
             
             case (90):
                 return new Vector3(-localPosition.z, localPosition.y, localPosition.x);
 
             case (180):
-                //transform.Rotate(new Vector3(0, 180, 0));
-                return new Vector3(localPosition.x, localPosition.y, localPosition.z);
+                return new Vector3(-localPosition.x, localPosition.y, -localPosition.z);
 
             case (270):
                 return new Vector3(localPosition.z, localPosition.y, -localPosition.x);

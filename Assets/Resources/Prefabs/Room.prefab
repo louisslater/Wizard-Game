@@ -704,10 +704,10 @@ MonoBehaviour:
   - {fileID: 3135625001320537695}
   - {fileID: 3135625000799373263}
   entrances:
-  - {fileID: 136878514833225089}
-  - {fileID: 7734914537315941285}
   - {fileID: 4605429523080725449}
   - {fileID: 7259785238308713913}
+  - {fileID: 136878514833225089}
+  - {fileID: 7734914537315941285}
   roomBottomCorner: {x: 5, y: 0, z: 5}
   roomTopCorner: {x: -5, y: 5.5, z: -5}
   propList:
