@@ -708,8 +708,8 @@ MonoBehaviour:
   - {fileID: 7259785238308713913}
   - {fileID: 136878514833225089}
   - {fileID: 7734914537315941285}
-  roomBottomCorner: {x: 5, y: 0, z: 5}
-  roomTopCorner: {x: -5, y: 5.5, z: -5}
+  roomBottomCorner: {x: 4.5, y: 0, z: 4.5}
+  roomTopCorner: {x: -4.5, y: 5.5, z: -4.5}
   propList:
     objectsList:
     - rolls: 3

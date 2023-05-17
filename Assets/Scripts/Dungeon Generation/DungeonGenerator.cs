@@ -5,8 +5,8 @@ using UnityEngine;
 public class DungeonGenerator : MonoBehaviour
 {
     public GameObject[] rooms;
-    public List<GameObject> roomClones = new List<GameObject>();
-    public RoomEntranceMap roomEntranceMap = new RoomEntranceMap();
+    public DungeonModel dungeonModel = new DungeonModel();
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,15 +25,57 @@ public class DungeonGenerator : MonoBehaviour
 
     void CreateRoomTest()
     {
-
+        var roomBound1 = new RoomBound(new Vector3(0, 0, 0), new Vector3(5, 5, 5));
+        var roomBound2 = new RoomBound(new Vector3(0, 0, 0), new Vector3(-1, -1, -1));
+        var result = roomBound1.IsIntersecting(roomBound2);
     }
 
     void GenerateDungeon()
     {
         GenerateFirstRoom();
 
+        StartCoroutine(dungeonGeneratorCoroutine());
+        /*
         for(int i = 0; i < 30; i ++)
         {
+
+            //source room
+            
+            var roomIndex = Random.Range(0, roomClones.Count);
+            var room = roomClones[roomIndex];
+            var roomBehaviour = room.GetComponent<RoomBehaviour>();
+            var entranceIndex = Random.Range(1, roomBehaviour.entrances.Length);// Random.Range(0, rooms[0].entrances.Length);
+
+            var roomEntrance = dungeonModel.PullRandomRoomEntrance();
+            var roomTemplateIndex = Random.Range(0, rooms.Length);
+
+            // return room1.entrances[0].GetComponent<Entrance>().roomlink;
+
+
+            var newRoom = GenerateRoom(roomEntrance, roomTemplateIndex);
+
+            CreateRoomTest();
+
+            if (dungeonModel.IsIntersecting(newRoom))
+            {
+                //GameObject.Destroy(newRoom);
+
+                continue;
+            }
+
+                Debug.Log(roomEntrance.Key);
+            dungeonModel.AddRoom(newRoom);
+
+            
+        }
+        */
+    }
+
+    IEnumerator dungeonGeneratorCoroutine()
+    {
+        for (int i = 0; i < 30; i++)
+        {
+
             //source room
             /*
             var roomIndex = Random.Range(0, roomClones.Count);
@@ -41,16 +83,30 @@ public class DungeonGenerator : MonoBehaviour
             var roomBehaviour = room.GetComponent<RoomBehaviour>();
             var entranceIndex = Random.Range(1, roomBehaviour.entrances.Length);// Random.Range(0, rooms[0].entrances.Length);
             */
-            var roomEntrance = roomEntranceMap.PullRandomRoomEntrance();
-            var roomTemplateIndex = Random.Range(0, rooms.Length);
-            
+            var roomEntrance = dungeonModel.GetRandomRoomEntrance();
+            var roomTemplateIndex = 0; // Random.Range(0, rooms.Length);
+
             // return room1.entrances[0].GetComponent<Entrance>().roomlink;
 
-            var newRoom = GenerateRoom(roomEntrance, roomTemplateIndex);
-            Debug.Log(roomEntrance.Key);
-            AddRoom(newRoom);
-            
 
+            var newRoom = GenerateRoom(roomEntrance, roomTemplateIndex);
+
+            CreateRoomTest();
+
+            if (dungeonModel.IsIntersecting(newRoom))
+            {
+                //GameObject.Destroy(newRoom);
+                Debug.Log("intersection!!");
+
+                continue;
+            }
+
+            Debug.Log(roomEntrance.Key);
+            dungeonModel.AddRoom(newRoom);
+
+            dungeonModel.RemoveEntranceIndex(roomEntrance.Key);
+
+            yield return new WaitForSeconds(2);
         }
     }
 
@@ -61,20 +117,12 @@ public class DungeonGenerator : MonoBehaviour
         //room1
         var pos = new Vector3(20, 0, 20);
         var room = CreateRoom(pos, new Quaternion(0, 0, 0, 0), rooms[0]);
-        AddRoom(room);     
+        dungeonModel.AddRoom(room);     
     }
-
-    void AddRoom(GameObject room)
-    {
-        roomClones.Add(room);
-        roomEntranceMap.AddRoom(roomClones.Count-1, room.GetComponent<RoomBehaviour>().entrances.Length);
-        roomEntranceMap.RemoveEntrance(roomClones.Count - 1, 0);
-    }
-
 
     GameObject GenerateRoom(RoomEntrance roomEntrance, int roomTemplateIndex)
     {
-        var sourceRoom = roomClones[roomEntrance.roomIndex];
+        var sourceRoom = dungeonModel.GetSourceRoom(roomEntrance);
         var sourceEntrance = sourceRoom.GetComponent<RoomBehaviour>().entrances[roomEntrance.entranceIndex];
         var sourceTransform = sourceEntrance.transform;
 
