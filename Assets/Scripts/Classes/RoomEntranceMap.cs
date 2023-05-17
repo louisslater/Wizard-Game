@@ -7,11 +7,15 @@ public class RoomEntranceMap
 
     private List<int> roomEntrances;
 
+    private List<int> roomBounds;
+
 
     public RoomEntranceMap()
     {
         roomEntrances = new List<int>();
-       
+
+        roomBounds = new List<int>();
+
     }
 
     public void AddRoom(int roomIndex, int entranceCount)

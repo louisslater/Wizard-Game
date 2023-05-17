@@ -87,6 +87,7 @@ public class DungeonGenerator : MonoBehaviour
         var targetRoom = CreateRoom(pos, sourceTransform.rotation, templateRoom);
         var targetTransform = targetRoom.GetComponent<RoomBehaviour>().roomContents.transform;
         targetTransform.localPosition = GetLocalPosition(templateTransform);
+
         return targetRoom;
     }
 
@@ -97,7 +98,7 @@ public class DungeonGenerator : MonoBehaviour
         {
             case (0):
                 return new Vector3(localPosition.x, localPosition.y, localPosition.z);
-            
+
             case (90):
                 return new Vector3(-localPosition.z, localPosition.y, localPosition.x);
 
