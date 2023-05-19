@@ -73,7 +73,7 @@ public class DungeonGenerator : MonoBehaviour
 
     IEnumerator dungeonGeneratorCoroutine()
     {
-        for (int i = 0; i < 120; i++)
+        for (int i = 0; i < 200;)
         {
 
             //source room
@@ -101,6 +101,7 @@ public class DungeonGenerator : MonoBehaviour
             dungeonModel.AddRoom(newRoom);
             dungeonModel.RemoveEntranceIndex(roomEntrance.Key);
 
+            i++;
             yield return new WaitForSeconds(0.1f);
         }
     }
