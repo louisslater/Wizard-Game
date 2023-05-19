@@ -73,7 +73,7 @@ public class DungeonGenerator : MonoBehaviour
 
     IEnumerator dungeonGeneratorCoroutine()
     {
-        for (int i = 0; i < 30; i++)
+        for (int i = 0; i < 120; i++)
         {
 
             //source room
@@ -84,29 +84,24 @@ public class DungeonGenerator : MonoBehaviour
             var entranceIndex = Random.Range(1, roomBehaviour.entrances.Length);// Random.Range(0, rooms[0].entrances.Length);
             */
             var roomEntrance = dungeonModel.GetRandomRoomEntrance();
-            var roomTemplateIndex = 0; // Random.Range(0, rooms.Length);
+            var roomTemplateIndex = Random.Range(0, rooms.Length);
 
             // return room1.entrances[0].GetComponent<Entrance>().roomlink;
 
 
             var newRoom = GenerateRoom(roomEntrance, roomTemplateIndex);
 
-            CreateRoomTest();
-
             if (dungeonModel.IsIntersecting(newRoom))
             {
-                //GameObject.Destroy(newRoom);
-                Debug.Log("intersection!!");
+                GameObject.Destroy(newRoom);
 
+                Debug.Log("i"+i);
                 continue;
             }
-
-            Debug.Log(roomEntrance.Key);
             dungeonModel.AddRoom(newRoom);
-
             dungeonModel.RemoveEntranceIndex(roomEntrance.Key);
 
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -117,7 +112,7 @@ public class DungeonGenerator : MonoBehaviour
         //room1
         var pos = new Vector3(20, 0, 20);
         var room = CreateRoom(pos, new Quaternion(0, 0, 0, 0), rooms[0]);
-        dungeonModel.AddRoom(room);     
+        dungeonModel.AddRoom(room);
     }
 
     GameObject GenerateRoom(RoomEntrance roomEntrance, int roomTemplateIndex)

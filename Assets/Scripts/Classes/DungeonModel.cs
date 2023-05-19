@@ -32,17 +32,18 @@ public class DungeonModel
             roomEntranceIndexes.Add(new RoomEntrance(roomClones.Count - 1, i).Key);
         }
         RemoveEntranceIndex(roomClones.Count - 1, 0);
+        Debug.Log(roomClones.Count);
     }
 
     public RoomBound GetRoomBound(GameObject room)
     {
         var roomBehaviour = room.GetComponent<RoomBehaviour>();
-        return new RoomBound(roomBehaviour.roomBottomCorner, roomBehaviour.roomTopCorner);
+        return new RoomBound(roomBehaviour.roomBottomCorner.transform.position, roomBehaviour.roomTopCorner.transform.position);
     }
 
-    public bool IsIntersecting(GameObject room)
+    public bool IsIntersecting(GameObject targetRoom)
     {
-        var roomBoundTarget = GetRoomBound(room);
+        var roomBoundTarget = GetRoomBound(targetRoom);
         foreach(var roomBound in roomBounds)
         {
             if (roomBound.IsIntersecting(roomBoundTarget))
@@ -76,7 +77,7 @@ public class DungeonModel
 
     public RoomEntrance GetRandomRoomEntrance()
     {
-        int randomIndex = Random.Range(0, roomEntranceIndexes.Count - 1);
+        int randomIndex = Random.Range(0, roomEntranceIndexes.Count);
         int key = roomEntranceIndexes[randomIndex];
         //roomEntranceIndexes.Remove(key);
         Debug.Log($"randomIndex:{randomIndex} count:{roomEntranceIndexes.Count}");

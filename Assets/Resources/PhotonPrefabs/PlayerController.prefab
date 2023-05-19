@@ -711,7 +711,7 @@ MonoBehaviour:
   mouseSensitivity: 3
   sprintSpeed: 6
   walkSpeed: 3
-  jumpForce: 150
+  jumpForce: 300
   smoothTime: 0.15
   items:
   - {fileID: 7786994132160307472}
@@ -1147,8 +1147,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.6430725, b: 0.27843142, a: 1}
-  m_Intensity: 15
-  m_Range: 15
+  m_Intensity: 100
+  m_Range: 50
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10

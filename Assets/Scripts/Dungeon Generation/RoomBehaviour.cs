@@ -4,21 +4,11 @@ using UnityEngine;
 
 public class RoomBehaviour : MonoBehaviour
 {
-    public GameObject[] walls;
-    public GameObject[] doors;
     public GameObject[] entrances;
-    public Vector3 roomBottomCorner;
-    public Vector3 roomTopCorner;
+    public GameObject roomBottomCorner;
+    public GameObject roomTopCorner;
     public GameObjectList propList = new GameObjectList();
     public GameObject roomContents;
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawCube(roomBottomCorner, new Vector3(0.1f, 0.1f, 0.1f));
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(roomTopCorner, new Vector3(0.1f, 0.1f, 0.1f));
-    }
 
     public void UpdateRoom()
     {

@@ -33,7 +33,7 @@ public class RoomBound
     private bool IsIntersecting(float point1, float point2, float point3)
     {
         if (point1 < point2)
-            return point3 >= point1 && point3 <= point2;
-        return point3 <= point1 && point3 >= point2;
+            return point1 <= point3 && point3 <= point2;
+        return point1 >= point3 && point3 >= point2;
     }
 }
