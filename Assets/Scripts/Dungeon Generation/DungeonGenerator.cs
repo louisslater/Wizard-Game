@@ -73,7 +73,7 @@ public class DungeonGenerator : MonoBehaviour
 
     IEnumerator dungeonGeneratorCoroutine()
     {
-        for (int i = 0; i < 200;)
+        for (int i = 0; i < 50;)
         {
 
             //source room
