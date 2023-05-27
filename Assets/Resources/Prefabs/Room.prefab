@@ -805,6 +805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3135625000144999987}
   - component: {fileID: 3135625000144999986}
+  - component: {fileID: 5177814032642987308}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -888,6 +889,19 @@ MonoBehaviour:
       - {fileID: 8480042360756874148}
       - {fileID: 1524355658672869016}
   roomContents: {fileID: 1005998699579007342}
+--- !u!65 &5177814032642987308
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3135625000144999984}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.75, y: 6, z: 9.75}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!1 &3135625000425284435
 GameObject:
   m_ObjectHideFlags: 0

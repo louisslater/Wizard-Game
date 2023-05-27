@@ -34,6 +34,11 @@ public class RoomBehaviour : MonoBehaviour
             }
         }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+    }
+
         /*
         for(int i = 0; i < status.Length; i++)
         {
