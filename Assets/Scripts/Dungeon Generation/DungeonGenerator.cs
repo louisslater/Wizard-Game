@@ -7,11 +7,18 @@ public class DungeonGenerator : MonoBehaviour
     public GameObject[] rooms;
     public DungeonModel dungeonModel = new DungeonModel();
 
+    public int seed = 1;
 
     // Start is called before the first frame update
     void Start()
     {
+        GenerateSeed();
         GenerateDungeon();
+    }
+
+    void GenerateSeed()
+    {
+        Random.InitState(seed);
     }
 
     GameObject CreateRoom(Vector3 position, Quaternion rotation, GameObject roomTemplate)
