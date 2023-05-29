@@ -17,17 +17,9 @@ public class DungeonGenerator : MonoBehaviour
     GameObject CreateRoom(Vector3 position, Quaternion rotation, GameObject roomTemplate)
     {
         //var roomScript = roomTemplate.GetComponent<RoomBehaviour>();
-        var newRoom = Instantiate(roomTemplate, new Vector3(position.x, position.y, position.z), rotation, transform).GetComponent<RoomBehaviour>();
-        newRoom.UpdateRoom();
-        return newRoom.gameObject;
-    }
-
-
-    void CreateRoomTest()
-    {
-        var roomBound1 = new RoomBound(new Vector3(0, 0, 0), new Vector3(5, 5, 5));
-        var roomBound2 = new RoomBound(new Vector3(0, 0, 0), new Vector3(-1, -1, -1));
-        var result = roomBound1.IsIntersecting(roomBound2);
+        var newRoom = Instantiate(roomTemplate, new Vector3(position.x, position.y, position.z), rotation, transform);
+        newRoom.GetComponent<RoomBehaviour>().UpdateRoom();
+        return newRoom;
     }
 
     void GenerateDungeon()
@@ -93,9 +85,9 @@ public class DungeonGenerator : MonoBehaviour
 
             if (dungeonModel.IsIntersecting(newRoom))
             {
-                GameObject.Destroy(newRoom);
-
-                Debug.Log("i"+i);
+                Destroy(newRoom);
+                Debug.Log("destroyed room!");
+                yield return new WaitForSeconds(0.1f);
                 continue;
             }
             dungeonModel.AddRoom(newRoom);

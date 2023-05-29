@@ -5,8 +5,7 @@ using UnityEngine;
 public class RoomBehaviour : MonoBehaviour
 {
     public GameObject[] entrances;
-    public GameObject roomBottomCorner;
-    public GameObject roomTopCorner;
+    public Collider roomCollider;
     public GameObjectList propList = new GameObjectList();
     public GameObject roomContents;
 
@@ -33,11 +32,6 @@ public class RoomBehaviour : MonoBehaviour
                 }
             }
         }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-    }
 
         /*
         for(int i = 0; i < status.Length; i++)

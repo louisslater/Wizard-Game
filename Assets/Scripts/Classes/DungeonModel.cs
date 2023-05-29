@@ -9,13 +9,13 @@ public class DungeonModel
 
     private List<GameObject> roomClones = new List<GameObject>();
 
-    private List<RoomBound> roomBounds;
+    private List<Collider> roomColliders;
 
 
     public DungeonModel()
     {
         roomEntranceIndexes = new List<int>();
-        roomBounds = new List<RoomBound>();
+        roomColliders = new List<Collider>();
 
     }
 
@@ -25,29 +25,34 @@ public class DungeonModel
 
         roomClones.Add(room);
 
-        roomBounds.Add(GetRoomBound(room));
+        roomColliders.Add(roomBehaviour.roomCollider);
 
         for (int i = 0; i < roomBehaviour.entrances.Length; i++)
         {
             roomEntranceIndexes.Add(new RoomEntrance(roomClones.Count - 1, i).Key);
         }
         RemoveEntranceIndex(roomClones.Count - 1, 0);
+
         Debug.Log(roomClones.Count);
     }
 
-    public RoomBound GetRoomBound(GameObject room)
+    public Collider GetRoomCollider(GameObject room)
     {
         var roomBehaviour = room.GetComponent<RoomBehaviour>();
-        return new RoomBound(roomBehaviour.roomBottomCorner.transform.position, roomBehaviour.roomTopCorner.transform.position);
+        return roomBehaviour.roomCollider;
     }
 
     public bool IsIntersecting(GameObject targetRoom)
     {
-        var roomBoundTarget = GetRoomBound(targetRoom);
-        foreach(var roomBound in roomBounds)
+        var roomColliderTarget = GetRoomCollider(targetRoom);
+
+        Collider[] collidingRooms = Physics.OverlapBox(roomColliderTarget.gameObject.transform.position , roomColliderTarget.bounds.extents, Quaternion.identity, LayerMask.GetMask("Room"));
+        Debug.Log("colliding rooms: " + collidingRooms.Length);
+
+
+        if(collidingRooms.Length > 1)
         {
-            if (roomBound.IsIntersecting(roomBoundTarget))
-                return true;
+            return true;
         }
         return false;
     }
