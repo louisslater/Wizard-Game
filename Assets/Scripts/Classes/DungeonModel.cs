@@ -46,7 +46,7 @@ public class DungeonModel
     {
         var roomColliderTarget = GetRoomCollider(targetRoom);
 
-        Collider[] collidingRooms = Physics.OverlapBox(roomColliderTarget.gameObject.transform.position , roomColliderTarget.bounds.extents, Quaternion.identity, LayerMask.GetMask("Room"));
+        Collider[] collidingRooms = Physics.OverlapBox(roomColliderTarget.gameObject.transform.position + roomColliderTarget.bounds.center , roomColliderTarget.bounds.extents, Quaternion.identity, LayerMask.GetMask("Room"));
         Debug.Log("colliding rooms: " + collidingRooms.Length);
 
 
