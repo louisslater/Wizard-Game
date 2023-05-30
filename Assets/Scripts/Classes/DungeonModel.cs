@@ -45,9 +45,9 @@ public class DungeonModel
     public bool IsIntersecting(GameObject targetRoom)
     {
         var roomColliderTarget = GetRoomCollider(targetRoom);
+        var roomColliderPosition = roomColliderTarget.gameObject.transform.position;
 
-        Collider[] collidingRooms = Physics.OverlapBox(roomColliderTarget.gameObject.transform.position + roomColliderTarget.bounds.center , roomColliderTarget.bounds.extents, Quaternion.identity, LayerMask.GetMask("Room"));
-        Debug.Log("colliding rooms: " + collidingRooms.Length);
+        Collider[] collidingRooms = Physics.OverlapBox(new Vector3(roomColliderPosition.x, roomColliderTarget.gameObject.transform.localPosition.y + roomColliderTarget.bounds.center.y, roomColliderPosition.z), roomColliderTarget.bounds.extents, Quaternion.identity, LayerMask.GetMask("Room"));
 
 
         if(collidingRooms.Length > 1)
