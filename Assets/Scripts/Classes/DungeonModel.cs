@@ -33,7 +33,7 @@ public class DungeonModel
         }
         RemoveEntranceIndex(roomClones.Count - 1, 0);
 
-        Debug.Log(roomClones.Count);
+        //Debug.Log(roomClones.Count);
     }
 
     public Collider GetRoomCollider(GameObject room)
@@ -47,12 +47,32 @@ public class DungeonModel
         var roomColliderTarget = GetRoomCollider(targetRoom);
         var roomColliderPosition = roomColliderTarget.gameObject.transform.position;
 
-        Collider[] collidingRooms = Physics.OverlapBox(new Vector3(roomColliderPosition.x, roomColliderTarget.gameObject.transform.localPosition.y + roomColliderTarget.bounds.center.y, roomColliderPosition.z), roomColliderTarget.bounds.extents, Quaternion.identity, LayerMask.GetMask("Room"));
-
+        Collider[] collidingRooms = Physics.OverlapBox(new Vector3(roomColliderPosition.x, roomColliderTarget.bounds.center.y, roomColliderPosition.z), roomColliderTarget.bounds.extents, Quaternion.identity, LayerMask.GetMask("Room"));
 
         if(collidingRooms.Length > 1)
         {
             return true;
+        }
+        return false;
+    }
+
+    public bool isOutsideOfBounds(GameObject targetRoom)
+    {
+        var targetRoomBehaviour = targetRoom.GetComponent<RoomBehaviour>();
+        foreach(var entrance in targetRoomBehaviour.entrances)
+        {
+            if(entrance.transform.position.z < 0)
+            {
+                return true;
+            }
+            if (entrance.transform.position.y > 50 | entrance.transform.position.y < 0)
+            {
+                return true;
+            }
+            if(entrance.transform.position.x > 200 | entrance.transform.position.x < -200)
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -76,7 +96,7 @@ public class DungeonModel
     {
         int key = roomEntranceIndexes[0];
         //roomEntranceIndexes.Remove(key);
-        Debug.Log($"count:{roomEntranceIndexes.Count}");
+        //Debug.Log($"count:{roomEntranceIndexes.Count}");
         return new RoomEntrance(key);
     }
 
@@ -85,7 +105,7 @@ public class DungeonModel
         int randomIndex = Random.Range(0, roomEntranceIndexes.Count);
         int key = roomEntranceIndexes[randomIndex];
         //roomEntranceIndexes.Remove(key);
-        Debug.Log($"randomIndex:{randomIndex} count:{roomEntranceIndexes.Count}");
+        //Debug.Log($"randomIndex:{randomIndex} count:{roomEntranceIndexes.Count}");
         return new RoomEntrance(key);
     }
 }

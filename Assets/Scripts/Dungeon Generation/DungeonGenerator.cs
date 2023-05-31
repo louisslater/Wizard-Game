@@ -5,6 +5,9 @@ using UnityEngine;
 public class DungeonGenerator : MonoBehaviour
 {
     public GameObject[] rooms;
+
+    public GameObject startingRoom;
+
     public DungeonModel dungeonModel = new DungeonModel();
 
     public int seed = 1;
@@ -27,6 +30,20 @@ public class DungeonGenerator : MonoBehaviour
         var newRoom = Instantiate(roomTemplate, new Vector3(position.x, position.y, position.z), rotation, transform);
         newRoom.GetComponent<RoomBehaviour>().UpdateRoom();
         return newRoom;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(new Vector3(200, 0, 0), new Vector3(-200, 0, 0));
+        Gizmos.DrawLine(new Vector3(200, 50, 0), new Vector3(-200, 50, 0));
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(new Vector3(200, 0, 0), new Vector3(200, 0, 250));
+        Gizmos.DrawLine(new Vector3(-200, 0, 0), new Vector3(-200, 0, 250));
+
+        Gizmos.DrawLine(new Vector3(200, 50, 0), new Vector3(200, 50, 250));
+        Gizmos.DrawLine(new Vector3(-200, 50, 0), new Vector3(-200, 50, 250));
     }
 
     void GenerateDungeon()
@@ -90,13 +107,13 @@ public class DungeonGenerator : MonoBehaviour
 
             var newRoom = GenerateRoom(roomEntrance, roomTemplateIndex);
 
-            if (dungeonModel.IsIntersecting(newRoom))
+            if (dungeonModel.IsIntersecting(newRoom) | dungeonModel.isOutsideOfBounds(newRoom))
             {
                 Destroy(newRoom);
-                Debug.Log("destroyed room!");
                 yield return new WaitForSeconds(0.01f);
                 continue;
             }
+
             dungeonModel.AddRoom(newRoom);
             dungeonModel.RemoveEntranceIndex(roomEntrance.Key);
 
@@ -110,8 +127,8 @@ public class DungeonGenerator : MonoBehaviour
     void GenerateFirstRoom()
     {
         //room1
-        var pos = new Vector3(20, 0, 20);
-        var room = CreateRoom(pos, new Quaternion(0, 0, 0, 0), rooms[0]);
+        var pos = new Vector3(0, 0, 0);
+        var room = CreateRoom(pos, new Quaternion(0, 0, 0, 0), startingRoom);
         dungeonModel.AddRoom(room);
     }
 
