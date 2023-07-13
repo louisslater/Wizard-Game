@@ -61,7 +61,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         }
         Look();
         Jump();
-        Move();
+
+        if(grounded)
+            Move();
 
         for(int i = 0; i < items.Length; i++)
         {
