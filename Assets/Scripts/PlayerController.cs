@@ -181,7 +181,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             return;
         }
-        rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+        //rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+        rb.velocity = new Vector3(transform.TransformDirection(moveAmount).x,rb.velocity.y, transform.TransformDirection(moveAmount).z);
     }
 
     public void TakeDamage(float damage)
