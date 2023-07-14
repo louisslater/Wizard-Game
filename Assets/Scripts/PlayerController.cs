@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
     [SerializeField] GameObject cameraHolder;
 
-    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
+    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime, jumpDelay;
 
     [SerializeField] Item[] items;
 
@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     float verticalLookRotation;
     bool grounded;
+    bool canJump = true;
     Vector3 smoothMoveVelocity;
     Vector3 moveAmount;
 
@@ -124,15 +125,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
         moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
-
     }
 
     void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && grounded && canJump)
         {
+            canJump = false;
             rb.AddForce(transform.up * jumpForce);
+            StartCoroutine(JumpDelay());
         }
+    }
+
+    IEnumerator JumpDelay()
+    {
+        yield return new WaitForSeconds(jumpDelay);
+        canJump = true;
     }
 
     void EquipItem(int _index)
@@ -177,12 +185,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void FixedUpdate()
     {
-        if (!PV.IsMine)
+        if (!PV.IsMine || !grounded)
         {
             return;
         }
         //rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-        rb.velocity = new Vector3(transform.TransformDirection(moveAmount).x,rb.velocity.y, transform.TransformDirection(moveAmount).z);
+        rb.velocity = new Vector3(transform.TransformDirection(moveAmount).x,rb.velocity.y, transform.TransformDirection(moveAmount).z); //Keeps local velocity
     }
 
     public void TakeDamage(float damage)

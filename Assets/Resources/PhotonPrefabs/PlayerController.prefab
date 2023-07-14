@@ -714,7 +714,8 @@ MonoBehaviour:
   sprintSpeed: 6.5
   walkSpeed: 3.5
   jumpForce: 190
-  smoothTime: 0.15
+  smoothTime: 0
+  jumpDelay: 1
   items:
   - {fileID: 7786994132160307472}
   - {fileID: 3167110414436547803}
