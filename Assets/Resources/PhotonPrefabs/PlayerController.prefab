@@ -713,9 +713,10 @@ MonoBehaviour:
   mouseSensitivity: 3
   sprintSpeed: 6.5
   walkSpeed: 3.5
-  jumpForce: 190
+  jumpForce: 300
   smoothTime: 0
   jumpDelay: 1
+  accelerationMultiplier: 10
   items:
   - {fileID: 7786994132160307472}
   - {fileID: 3167110414436547803}
@@ -753,7 +754,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4721481035599313137}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 24f4e94667f92254bb0eda335a9b3a25, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4

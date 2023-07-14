@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
     [SerializeField] GameObject cameraHolder;
 
-    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime, jumpDelay;
+    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime, jumpDelay, accelerationMultiplier;
 
     [SerializeField] Item[] items;
 
@@ -190,7 +190,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             return;
         }
         //rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
-        rb.velocity = new Vector3(transform.TransformDirection(moveAmount).x,rb.velocity.y, transform.TransformDirection(moveAmount).z); //Keeps local velocity
+        //rb.velocity = new Vector3(transform.TransformDirection(moveAmount).x,rb.velocity.y, transform.TransformDirection(moveAmount).z); //Keeps local velocity
+        rb.AddForce(transform.TransformDirection(moveAmount) * accelerationMultiplier);
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, walkSpeed);
     }
 
     public void TakeDamage(float damage)
