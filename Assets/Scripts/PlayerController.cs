@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     int previousItemIndex = -1;
 
     float verticalLookRotation;
+    Vector3 velo; // Magnitude of x and z velocity
     bool grounded;
     bool canJump = true;
     Vector3 smoothMoveVelocity;
@@ -192,7 +193,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         //rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
         //rb.velocity = new Vector3(transform.TransformDirection(moveAmount).x,rb.velocity.y, transform.TransformDirection(moveAmount).z); //Keeps local velocity
         rb.AddForce(transform.TransformDirection(moveAmount) * accelerationMultiplier);
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, walkSpeed);
+        velo = Vector3.ClampMagnitude(new Vector3(rb.velocity.x, 0, rb.velocity.z), walkSpeed);
+        rb.velocity = new Vector3(velo.x, rb.velocity.y ,velo.z);
     }
 
     public void TakeDamage(float damage)
