@@ -6362,6 +6362,7 @@ MonoBehaviour:
   - {fileID: 3135625000144999984, guid: 3f62dc2c90fd9c1429907dc514bb9af8, type: 3}
   - {fileID: 3135625000144999984, guid: d3963bb9db4cb614ba0ba4ff174a2e77, type: 3}
   - {fileID: 3135625000144999984, guid: fe4b6aa53c5f2bd4d99f1d2aa8d988b5, type: 3}
+  - {fileID: 3135625000144999984, guid: ba9605644fde14047899d839eff6ba38, type: 3}
   startingRoom: {fileID: 3135625000144999984, guid: ec72bf620a2f82e499fa160aaa8fdc60, type: 3}
   seed: 1
 --- !u!1 &986862058
