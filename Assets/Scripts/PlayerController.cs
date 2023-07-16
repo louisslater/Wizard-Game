@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
     [SerializeField] GameObject cameraHolder;
 
-    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime, jumpDelay, accelerationMultiplier;
+    [SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime, jumpDelay, accelerationMultiplier, jumpStrength; //jumpStrength multiplies the x & z at start of jump.
 
     [SerializeField] Item[] items;
 
@@ -134,7 +134,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             canJump = false;
             rb.AddForce(transform.up * jumpForce);
+            rb.velocity = new Vector3(rb.velocity.x * jumpStrength, rb.velocity.y, rb.velocity.z * jumpStrength);
             StartCoroutine(JumpDelay());
+
         }
     }
 

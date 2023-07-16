@@ -127,7 +127,7 @@ public class DungeonGenerator : MonoBehaviour
     void GenerateFirstRoom()
     {
         //room1
-        var pos = new Vector3(0, 20, 0);
+        var pos = new Vector3(0, 0, 0);
         var room = CreateRoom(pos, new Quaternion(0, 0, 0, 0), startingRoom);
         dungeonModel.AddRoom(room);
     }
