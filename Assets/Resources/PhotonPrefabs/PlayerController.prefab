@@ -698,7 +698,7 @@ MonoBehaviour:
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 3967
+    m_Bits: 65
   groundDrag: 9
   jumpForce: 8
   jumpCooldown: 1.2
