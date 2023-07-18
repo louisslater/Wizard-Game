@@ -70,8 +70,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             return;
         }
 
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        
         MyInput();
         SpeedControl();
 
@@ -209,9 +207,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
     }
     
     private void SpeedControl()
@@ -233,5 +231,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    public void SetGroundedState(bool _grounded)
+    {
+        grounded = _grounded;
     }
 }
