@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using System.IO;
 
 public class PropSpawner : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class PropSpawner : MonoBehaviour
 
     void Start()
     {
-        Instantiate(props[GetRandomPropIndex()], GetRandomSpawnPosition(spawnPositionMin, spawnPositionMax), GetRandomSpawnRotation(spawnRotationMin, spawnRotationMax));
+        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Briefcase Chest"), GetRandomSpawnPosition(spawnPositionMin, spawnPositionMax), GetRandomSpawnRotation(spawnRotationMin, spawnRotationMax));
     }
 
     int GetRandomPropIndex()
