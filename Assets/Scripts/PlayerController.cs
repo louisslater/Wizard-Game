@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
     [SerializeField] GameObject cameraHolder;
 
+    [SerializeField] float mouseSensitivity;
+
     [SerializeField] Item[] items;
 
     int itemIndex;
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     PlayerManager playerManager;
 
+    float verticalLookRotation;
     public float moveSpeed;
     public Transform orientation;
     float horizontalInput;
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        //rb.freezeRotation = true;
         PV = GetComponent<PhotonView>();
 
         playerManager = PhotonView.Find((int)PV.InstantiationData[0]).GetComponent<PlayerManager>();
@@ -52,6 +55,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         if(PV.IsMine)
         {
             EquipItem(0);
@@ -71,6 +76,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         }
 
         MyInput();
+        Look();
         SpeedControl();
 
         if (grounded)
@@ -119,6 +125,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             Die();
         }
+    }
+    void Look()
+    {
+        transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
+
+        verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
+
+        cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
+
     }
 
     void EquipItem(int _index)
