@@ -1314,6 +1314,7 @@ MonoBehaviour:
   items:
   - {fileID: 7786994132160307472}
   - {fileID: 3167110414436547803}
+  RingInventoryGroup: {fileID: 4765548464016278638}
   moveSpeed: 4
   orientation: {fileID: 2219455956633839703}
   playerHeight: 2
@@ -1326,6 +1327,7 @@ MonoBehaviour:
   jumpPenalty: 0.5
   airMultiplier: 0.1
   jumpKey: 32
+  ringInv: 114
 --- !u!65 &4331813902822468780
 BoxCollider:
   m_ObjectHideFlags: 0

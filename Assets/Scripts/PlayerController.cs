@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
+    public GameObject RingInventoryGroup;
 
     PlayerManager playerManager;
 
@@ -40,8 +41,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public float jumpPenalty;
     public float airMultiplier;
     bool readyToJump;
+    bool canMove;
 
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode ringInv = KeyCode.R;
 
     void Awake()
     {
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        canMove = true;
         if(PV.IsMine)
         {
             EquipItem(0);
@@ -75,50 +79,59 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             return;
         }
 
-        MyInput();
-        Look();
-        SpeedControl();
+        if (Input.GetKeyDown(ringInv) && grounded)
+        {
+            WhenRingInventoryButtonClicked();
+                return;
+        }
 
         if (grounded)
             rb.drag = groundDrag;
         else
             rb.drag = 0;
 
-        for(int i = 0; i < items.Length; i++)
+        if (canMove)
         {
-            if(Input.GetKeyDown((i+1).ToString()))
-            {
-                EquipItem(i);
-                break;
-            }
-        }
+            MyInput();
+            Look();
+            SpeedControl();
 
-        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
-        {
-            if(itemIndex >= items.Length -1)
+            for (int i = 0; i < items.Length; i++)
             {
-                EquipItem(0);
+                if (Input.GetKeyDown((i + 1).ToString()))
+                {
+                    EquipItem(i);
+                    break;
+                }
             }
-            else
-            {
-                EquipItem(itemIndex + 1);
-            }
-        }
-        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
-        {
-            if (itemIndex <= 0)
-            {
-                EquipItem(items.Length - 1);
-            }
-            else
-            {
-                EquipItem(itemIndex - 1);
-            }
-        }
 
-        if (Input.GetMouseButton(0))
-        {
-            items[itemIndex].Use();
+            if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+            {
+                if (itemIndex >= items.Length - 1)
+                {
+                    EquipItem(0);
+                }
+                else
+                {
+                    EquipItem(itemIndex + 1);
+                }
+            }
+            else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+            {
+                if (itemIndex <= 0)
+                {
+                    EquipItem(items.Length - 1);
+                }
+                else
+                {
+                    EquipItem(itemIndex - 1);
+                }
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                items[itemIndex].Use();
+            }
         }
 
         if (transform.position.y <= -10f)
@@ -178,7 +191,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             return;
         }
-        MovePlayer();
+        if (canMove)
+        {
+            MovePlayer();
+        }
     }
 
     public void TakeDamage(float damage)
@@ -252,5 +268,23 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public void SetGroundedState(bool _grounded)
     {
         grounded = _grounded;
+    }
+
+    public void WhenRingInventoryButtonClicked()
+    {
+        if (RingInventoryGroup.activeInHierarchy == true)
+        {
+            RingInventoryGroup.SetActive(false);
+            canMove = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            RingInventoryGroup.SetActive(true);
+            canMove = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 }
