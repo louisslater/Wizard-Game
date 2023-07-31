@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     const float maxHealth = 100f;
     float currentHealth = maxHealth;
     public GameObject RingInventoryGroup;
+    public GameObject ItemInventoryGroup;
 
     PlayerManager playerManager;
 
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode ringInv = KeyCode.R;
+    public KeyCode itemInv = KeyCode.Tab;
 
     void Awake()
     {
@@ -60,6 +62,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        ItemInventoryGroup.SetActive(false);
+        RingInventoryGroup.SetActive(false);
         canMove = true;
         if(PV.IsMine)
         {
@@ -82,7 +86,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (Input.GetKeyDown(ringInv) && grounded)
         {
             WhenRingInventoryButtonClicked();
-                return;
+        }
+        if (Input.GetKeyDown(itemInv) && grounded)
+        {
+            WhenItemInventoryButtonClicked();
         }
 
         if (grounded)
@@ -272,6 +279,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     public void WhenRingInventoryButtonClicked()
     {
+        ItemInventoryGroup.SetActive(false);
         if (RingInventoryGroup.activeInHierarchy == true)
         {
             RingInventoryGroup.SetActive(false);
@@ -282,6 +290,24 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         else
         {
             RingInventoryGroup.SetActive(true);
+            canMove = false;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+    }
+    public void WhenItemInventoryButtonClicked()
+    {
+        RingInventoryGroup.SetActive(false);
+        if (ItemInventoryGroup.activeInHierarchy == true)
+        {
+            ItemInventoryGroup.SetActive(false);
+            canMove = true;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            ItemInventoryGroup.SetActive(true);
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
