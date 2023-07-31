@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     float currentHealth = maxHealth;
     public GameObject RingInventoryGroup;
     public GameObject ItemInventoryGroup;
+    public GameObject ToolbarInventory;
 
     PlayerManager playerManager;
 
@@ -283,6 +284,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (RingInventoryGroup.activeInHierarchy == true)
         {
             RingInventoryGroup.SetActive(false);
+            ToolbarInventory.SetActive(true);
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -290,6 +292,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         else
         {
             RingInventoryGroup.SetActive(true);
+            ToolbarInventory.SetActive(false);
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -313,4 +316,5 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             Cursor.visible = true;
         }
     }
+
 }
