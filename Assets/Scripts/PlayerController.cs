@@ -300,6 +300,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     }
     public void WhenItemInventoryButtonClicked()
     {
+        ToolbarInventory.SetActive(true);
         RingInventoryGroup.SetActive(false);
         if (ItemInventoryGroup.activeInHierarchy == true)
         {
