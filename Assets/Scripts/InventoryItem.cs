@@ -12,8 +12,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     [HideInInspector] public Transform parentAfterDrag;
     public KeyCode ringInv = KeyCode.R;
     public KeyCode itemInv = KeyCode.Tab;
+
+    [HideInInspector] public InvItem invItem;
+
+    public void InitialiseItem(InvItem newItem)
+    {
+        invItem = newItem;
+        image.sprite = newItem.image;
+    }
     void Start()
     {
+        InitialiseItem(invItem);
         PlayerCanvas = GameObject.Find("Canvas");
     }
     void Update()
