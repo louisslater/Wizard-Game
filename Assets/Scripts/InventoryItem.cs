@@ -7,12 +7,17 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public Image image;
+    [HideInInspector] public GameObject PlayerCanvas;
     [HideInInspector] public Transform parentAfterDrag;
+    void Start()
+    {
+        PlayerCanvas = GameObject.Find("Canvas");
+    }
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("Begin drag");
         parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);
+        transform.SetParent(PlayerCanvas.transform);
         transform.SetAsLastSibling();
         image.raycastTarget = false;
     }
