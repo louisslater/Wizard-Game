@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d87278dd36eb04a911c5d7f9565f3c, type: 3}
   m_Name: CowBoyEq
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 76c5775c61450a548a687e67c9bbf867, type: 3}
   type: 1
   actiontype: 1
   range: {x: 5, y: 4}
