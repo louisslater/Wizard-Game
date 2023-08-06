@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d87278dd36eb04a911c5d7f9565f3c, type: 3}
   m_Name: DaggerEq
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: f7fa40a25ae002f4f91a6dbc26ad3cff, type: 3}
   type: 1
   actiontype: 1
   range: {x: 5, y: 4}
