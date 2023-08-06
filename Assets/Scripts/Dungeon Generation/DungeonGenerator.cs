@@ -117,6 +117,12 @@ public class DungeonGenerator : MonoBehaviour
             dungeonModel.AddRoom(newRoom);
             dungeonModel.RemoveEntranceIndex(roomEntrance.Key);
 
+            var propSpawner = newRoom.GetComponentInChildren<PropSpawner>();
+            if(propSpawner != null)
+            {
+                propSpawner.SpawnProps();
+            }
+
             i++;
             yield return new WaitForSeconds(0.01f);
         }
