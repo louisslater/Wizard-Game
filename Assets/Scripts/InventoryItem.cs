@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public Image image;
+    public Text countText;
     bool draggin;
     [HideInInspector] public GameObject PlayerCanvas;
     [HideInInspector] public Transform parentAfterDrag;
+    [HideInInspector] public int count = 1;
     public KeyCode ringInv = KeyCode.R;
     public KeyCode itemInv = KeyCode.Tab;
 
@@ -19,10 +21,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     {
         invItem = newItem;
         image.sprite = newItem.image;
+        RefreshCount();
     }
     void Start()
     {
-        InitialiseItem(invItem);
         PlayerCanvas = GameObject.Find("Canvas");
     }
     void Update()
@@ -52,11 +54,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         Debug.Log("Dragging");
         transform.position = Input.mousePosition;
     }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("End drag");
         transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
         draggin = false;
+    }
+
+    public void RefreshCount()
+    {
+        countText.text = count.ToString();
     }
 }
