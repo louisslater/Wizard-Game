@@ -32,7 +32,12 @@ public class InventoryManager : MonoBehaviour
         {
             inventorySlots[selectedSlot].Deselect();
         }
-        
+        if (selectedSlot == newValue)
+        {
+            selectedSlot = -1;
+            return;
+        }
+
         inventorySlots[newValue].Select();
         selectedSlot = newValue;
     }
@@ -71,6 +76,10 @@ public class InventoryManager : MonoBehaviour
 
     public InvItem GetSelectedItem(bool use)
     {
+        if (selectedSlot < 0)
+        {
+            return null;
+        }
         InventorySlot slot = inventorySlots[selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
         if (itemInSlot != null)
