@@ -16,4 +16,4 @@ MonoBehaviour:
   type: 1
   actiontype: 1
   range: {x: 5, y: 4}
-  stackable: 1
+  stackable: 0
