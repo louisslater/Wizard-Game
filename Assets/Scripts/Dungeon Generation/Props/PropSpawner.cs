@@ -21,9 +21,9 @@ public class PropSpawner : MonoBehaviour
     [SerializeField]
     Vector3 spawnRotationMax;
 
-    void Start()
+    void SpawnProps()
     {
-        PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Briefcase Chest"), GetRandomSpawnPosition(spawnPositionMin, spawnPositionMax), GetRandomSpawnRotation(spawnRotationMin, spawnRotationMax));
+        PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", "Briefcase Chest"), GetRandomSpawnPosition(spawnPositionMin, spawnPositionMax), GetRandomSpawnRotation(spawnRotationMin, spawnRotationMax));
     }
 
     int GetRandomPropIndex()
