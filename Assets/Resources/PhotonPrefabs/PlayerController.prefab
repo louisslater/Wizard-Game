@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 4957831761659597032}
   - component: {fileID: 668481309221334067}
   - component: {fileID: 3167110015671681217}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,8 +206,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4721481035968083773}
-  - {fileID: 1452327101872731939}
-  - {fileID: 6526605976508362082}
+  - {fileID: 1485996180143747107}
   m_Father: {fileID: 4721481035599313141}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -359,7 +358,7 @@ GameObject:
   - component: {fileID: 2131029964196449355}
   - component: {fileID: 2826277559582669824}
   - component: {fileID: 3534493137221878322}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: ifinger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +847,7 @@ GameObject:
   - component: {fileID: 7786994132160307472}
   - component: {fileID: 2509142809643552566}
   - component: {fileID: 7193923103493389412}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Stick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,7 +1008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 424838923855964111}
   - component: {fileID: 3167110414436547803}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1437,7 +1436,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7724519132061842545}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1744,7 +1743,7 @@ GameObject:
   - component: {fileID: 5894448915980083073}
   - component: {fileID: 7427923944466160713}
   - component: {fileID: 4260602490678424150}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: mfinger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1974,7 +1973,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9029766184584021181}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: RFinger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2006,7 +2005,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6526605976508362082}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: ItemHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2020,15 +2019,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3671974353180656923}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.84}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.84000015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1030724056541938171}
   - {fileID: 424838923855964111}
-  m_Father: {fileID: 4840063258527482222}
-  m_RootOrder: 2
+  m_Father: {fileID: 1485996180143747107}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3739249225176032429
 GameObject:
@@ -2250,7 +2249,7 @@ GameObject:
   - component: {fileID: 8126485450014364717}
   - component: {fileID: 5636922586894807900}
   - component: {fileID: 7649734319818701889}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: pinky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2331,7 +2330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3419802204241625159}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: IFinger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3828,7 +3827,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7441284925561143660}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: MFinger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4072,7 +4071,7 @@ GameObject:
   - component: {fileID: 3938095896337094088}
   - component: {fileID: 4640668093291400230}
   - component: {fileID: 2617288345846320757}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: rfinger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4155,7 +4154,7 @@ GameObject:
   - component: {fileID: 1018882647847801718}
   - component: {fileID: 7515395332678669584}
   - component: {fileID: 1054330135231157677}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4227,6 +4226,39 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7493037243237325101
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485996180143747107}
+  m_Layer: 0
+  m_Name: FPSView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1485996180143747107
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7493037243237325101}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1452327101872731939}
+  - {fileID: 6526605976508362082}
+  m_Father: {fileID: 4840063258527482222}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7698696373183936009
 GameObject:
   m_ObjectHideFlags: 0
@@ -4373,7 +4405,7 @@ GameObject:
   - component: {fileID: 7879781021709865352}
   - component: {fileID: 5148621975654251294}
   - component: {fileID: 4332333780218683716}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: thumb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4454,7 +4486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1452327101872731939}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: HandHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4469,7 +4501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7896968683497729271}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.84}
+  m_LocalPosition: {x: 0, y: 0, z: 0.84000015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4477,8 +4509,8 @@ Transform:
   - {fileID: 7441284925561143660}
   - {fileID: 9029766184584021181}
   - {fileID: 7724519132061842545}
-  m_Father: {fileID: 4840063258527482222}
-  m_RootOrder: 1
+  m_Father: {fileID: 1485996180143747107}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7978632931990111157
 GameObject:
@@ -4600,7 +4632,7 @@ GameObject:
   - component: {fileID: 1635094838954679844}
   - component: {fileID: 5239585018768877971}
   - component: {fileID: 8661085087053626659}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6756,7 +6788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4044976294006067018, guid: b384c0adf676eb74fa86908fb3e8d0c0, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6406832206425646361, guid: b384c0adf676eb74fa86908fb3e8d0c0, type: 3}
       propertyPath: m_Name
@@ -6764,7 +6796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6406832206425646361, guid: b384c0adf676eb74fa86908fb3e8d0c0, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6406832206425646361, guid: b384c0adf676eb74fa86908fb3e8d0c0, type: 3}
       propertyPath: m_IsActive

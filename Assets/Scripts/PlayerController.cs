@@ -69,6 +69,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if(PV.IsMine)
         {
             EquipItem(0);
+
+            var FPSView = GameObject.Find("FPSView");
+            FPSView.gameObject.layer = LayerMask.NameToLayer("FPSView");
+
+            var children = FPSView.GetComponentsInChildren<Transform>(includeInactive: true);
+            foreach (var child in children)
+            {
+                child.gameObject.layer = LayerMask.NameToLayer("FPSView");
+            }
         }
         else
         {
