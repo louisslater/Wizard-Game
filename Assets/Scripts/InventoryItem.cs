@@ -32,13 +32,15 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     {
         if (draggin == true && (Input.GetKeyDown(ringInv) || Input.GetKeyDown(itemInv)))
         {
+            PointerEventData eventData = new PointerEventData(EventSystem.current);
             transform.SetParent(parentAfterDrag);
             image.raycastTarget = true;
+            draggin = false;
+            eventData.pointerDrag = null;
         }
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Begin drag");
         parentAfterDrag = transform.parent;
         transform.SetParent(PlayerCanvas.transform);
         transform.SetAsLastSibling();
@@ -47,21 +49,20 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (Input.GetKeyDown(ringInv) || Input.GetKeyDown(itemInv))
+        if (draggin == true)
         {
-            eventData.pointerDrag = null;
-            return;
+            transform.position = Input.mousePosition;
         }
-        Debug.Log("Dragging");
-        transform.position = Input.mousePosition;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("End drag");
-        transform.SetParent(parentAfterDrag);
-        image.raycastTarget = true;
-        draggin = false;
+        if (draggin == true)
+        {
+            transform.SetParent(parentAfterDrag);
+            image.raycastTarget = true;
+            draggin = false;
+        }
     }
 
     public void RefreshCount()
