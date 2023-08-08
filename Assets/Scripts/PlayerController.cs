@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public GameObject ToolbarInventory;
 
     PlayerManager playerManager;
+    public DroppedItemSpawner droppedItemSpawner;
 
     float verticalLookRotation;
     public float moveSpeed;
@@ -171,6 +172,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void EquipItem(int _index)
     {
+        droppedItemSpawner.SpawnDroppedItem();
         if (_index == previousItemIndex)
             return;
 
