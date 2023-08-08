@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryItemPrefab;
     int selectedSlot = -1;
     int toolbarSlot = -1;
-    public InventoryManager inventoryManager;
+    [HideInInspector] public InventoryManager inventoryManager;
 
     private void Start()
     {

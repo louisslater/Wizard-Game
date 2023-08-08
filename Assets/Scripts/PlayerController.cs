@@ -172,7 +172,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     void EquipItem(int _index)
     {
-        droppedItemSpawner.SpawnDroppedItem();
         if (_index == previousItemIndex)
             return;
 
