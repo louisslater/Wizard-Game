@@ -232,4 +232,5 @@ MonoBehaviour:
   count: 1
   ringInv: 114
   itemInv: 9
+  dropItem: 103
   invItem: {fileID: 0}

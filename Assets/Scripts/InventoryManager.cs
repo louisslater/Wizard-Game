@@ -8,10 +8,16 @@ public class InventoryManager : MonoBehaviour
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
     int selectedSlot = -1;
+    int toolbarSlot = -1;
+    public InventoryManager inventoryManager;
 
     private void Start()
     {
-        ChangeSelectedSlot(0);
+        ChangeToolbarSlot(0);
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            inventorySlots[i].SetInventoryManager(inventoryManager);
+        }
     }
 
     private void Update()
@@ -21,25 +27,25 @@ public class InventoryManager : MonoBehaviour
             bool isNumber = int.TryParse(Input.inputString, out int number);
             if (isNumber && number > 3 && number < 7)
             {
-                ChangeSelectedSlot(number - 4);
+                ChangeToolbarSlot(number - 4);
             }
         }
     }
 
-    void ChangeSelectedSlot(int newValue)
+    void ChangeToolbarSlot(int newValue)
     {
-        if (selectedSlot >= 0)
+        if (toolbarSlot >= 0)
         {
-            inventorySlots[selectedSlot].Deselect();
+            inventorySlots[toolbarSlot].Deselect();
         }
-        if (selectedSlot == newValue)
+        if (toolbarSlot == newValue)
         {
             selectedSlot = -1;
             return;
         }
 
         inventorySlots[newValue].Select();
-        selectedSlot = newValue;
+        toolbarSlot = newValue;
     }
 
     public bool AddItem(InvItem invItem)
@@ -72,15 +78,16 @@ public class InventoryManager : MonoBehaviour
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(invItem);
+        inventoryItem.SetInventoryManager(inventoryManager);
     }
 
     public InvItem GetSelectedItem(bool use)
     {
-        if (selectedSlot < 0)
+        if (toolbarSlot < 0)
         {
             return null;
         }
-        InventorySlot slot = inventorySlots[selectedSlot];
+        InventorySlot slot = inventorySlots[toolbarSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
         if (itemInSlot != null)
         {
@@ -100,5 +107,40 @@ public class InventoryManager : MonoBehaviour
             return invItem;
         }
         return null;
+    }
+
+    public InvItem DropInvItem()
+    {
+        if (selectedSlot < 0)
+        {
+            return null;
+        }
+        InventorySlot slot = inventorySlots[selectedSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        if (itemInSlot != null)
+        {
+            InvItem invItem = itemInSlot.invItem;
+            itemInSlot.count--;
+            if (itemInSlot.count <= 0)
+            {
+                Destroy(itemInSlot.gameObject);
+            }
+            else
+            {
+                itemInSlot.RefreshCount();
+            }
+            return invItem;
+        }
+        return null;
+    }
+
+    public void SetSelectedSlot(int slotNumber)
+    {
+        selectedSlot = slotNumber;
+    }
+
+    public int GiveSelectedSlot()
+    {
+        return selectedSlot;
     }
 }

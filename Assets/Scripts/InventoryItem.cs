@@ -5,16 +5,19 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Image image;
     public TextMeshProUGUI countText;
+    [HideInInspector] public InventoryManager inventoryManager;
     bool draggin;
+    bool hovering;
     [HideInInspector] public GameObject PlayerCanvas;
     [HideInInspector] public Transform parentAfterDrag;
     [HideInInspector] public int count = 1;
     public KeyCode ringInv = KeyCode.R;
     public KeyCode itemInv = KeyCode.Tab;
+    public KeyCode dropItem = KeyCode.G;
 
     [HideInInspector] public InvItem invItem;
 
@@ -27,6 +30,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     void Start()
     {
         PlayerCanvas = GameObject.Find("Canvas");
+        draggin = false;
+        hovering = false;
     }
     void Update()
     {
@@ -37,8 +42,27 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
             image.raycastTarget = true;
             draggin = false;
             eventData.pointerDrag = null;
+            return;
+        }
+        if (draggin == false && hovering && Input.GetKeyDown(dropItem))
+        {
+            InvItem receivedItem = inventoryManager.DropInvItem();
+            if (receivedItem != null)
+            {
+                Debug.Log("Dropped " + receivedItem);
+            }
+            else
+            {
+                Debug.Log("Not Dropped");
+            }
         }
     }
+
+    public void SetInventoryManager(InventoryManager inventoryManager)
+    {
+        this.inventoryManager = inventoryManager;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         parentAfterDrag = transform.parent;
@@ -70,5 +94,15 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         countText.text = count.ToString();
         bool textActive = count > 1;
         countText.gameObject.SetActive(textActive);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        hovering = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        hovering = false;
     }
 }

@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Image image;
     public Color selectedColor, notSelectedColor;
+    public int slotNumber;
+    public InventoryManager inventoryManager;
+    int selectedSlotTemp;
 
     public void Awake()
     {
@@ -34,4 +37,19 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        selectedSlotTemp = inventoryManager.GiveSelectedSlot();
+        inventoryManager.SetSelectedSlot(slotNumber);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        inventoryManager.SetSelectedSlot(selectedSlotTemp);
+    }
+
+    public void SetInventoryManager(InventoryManager inventoryManager)
+    {
+        this.inventoryManager = inventoryManager;
+    }
 }
