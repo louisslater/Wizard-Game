@@ -330,6 +330,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         RingInventoryGroup.SetActive(false);
         if (ItemInventoryGroup.activeInHierarchy == true)
         {
+            inventoryManager.SetSelectedSlot(-1);
             ItemInventoryGroup.SetActive(false);
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
