@@ -90,7 +90,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(GetComponentInChildren<Canvas>().gameObject);
             Destroy(GetComponentInChildren<InventoryManager>().gameObject);
-            Destroy(GameObject.Find("Orientation"));
             Destroy(rb);
         }
     }
