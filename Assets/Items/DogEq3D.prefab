@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4145056392964282821}
   - component: {fileID: 1477629159430334947}
   - component: {fileID: -7365455485031351328}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DogEq3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

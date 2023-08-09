@@ -156,8 +156,20 @@ public class InventoryManager : MonoBehaviour
     {
         orientation = GameObject.Find("Orientation");
         SpawnedObject = Instantiate(objectToBeSpawned[itemid], orientation.transform.position, orientation.transform.rotation);
+        SpawnedObject.name = SpawnedObject.name.Replace("(Clone)", "").Trim();
         SpawnedObject.transform.Translate(0, 0, 0.7f);
         rb = SpawnedObject.GetComponent<Rigidbody>();
         rb.AddForce(SpawnedObject.transform.forward * 0.3f, ForceMode.Impulse);
+    }
+
+    public void CheckForAddItem(GameObject gameObject)
+    {
+        for (int i = 0; i < objectToBeSpawned.Length; i++)
+        {
+            if (objectToBeSpawned[i].name == gameObject.name)
+            {
+                AddItem(invItems[i]);
+            }
+        }
     }
 }

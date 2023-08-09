@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     [SerializeField] Item[] items;
 
+    [SerializeField] private LayerMask pickableLayerMask;
+    [SerializeField] [Min(1)] private float hitrange = 3;
+    private RaycastHit hit;
+
     int itemIndex;
     int previousItemIndex = -1;
 
@@ -25,6 +29,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public GameObject RingInventoryGroup;
     public GameObject ItemInventoryGroup;
     public GameObject ToolbarInventory;
+    [SerializeField] private InventoryManager inventoryManager;
 
     PlayerManager playerManager;
 
@@ -48,6 +53,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode ringInv = KeyCode.R;
     public KeyCode itemInv = KeyCode.Tab;
+    public KeyCode interactKey = KeyCode.F;
 
     void Awake()
     {
@@ -84,6 +90,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             Destroy(GetComponentInChildren<Camera>().gameObject);
             Destroy(GetComponentInChildren<Canvas>().gameObject);
             Destroy(GetComponentInChildren<InventoryManager>().gameObject);
+            Destroy(GameObject.Find("Orientation"));
             Destroy(rb);
         }
     }
@@ -150,6 +157,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             if (Input.GetMouseButton(0))
             {
                 items[itemIndex].Use();
+            }
+
+            if (Input.GetKeyDown(interactKey))
+            {
+                if (Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, hitrange, pickableLayerMask))
+                {
+                    inventoryManager.CheckForAddItem(hit.collider.gameObject);
+                    Destroy(hit.collider.gameObject);
+                }
             }
         }
 

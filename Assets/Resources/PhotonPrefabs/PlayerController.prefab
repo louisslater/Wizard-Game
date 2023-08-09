@@ -2828,10 +2828,14 @@ MonoBehaviour:
   items:
   - {fileID: 7786994132160307472}
   - {fileID: 3167110414436547803}
+  pickableLayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  hitrange: 2
   RingInventoryGroup: {fileID: 4765548464016278638}
   ItemInventoryGroup: {fileID: 2926711720552258460}
   ToolbarInventory: {fileID: 3770677782333273234}
-  droppedItemSpawner: {fileID: 0}
+  inventoryManager: {fileID: 5098076720786966809}
   moveSpeed: 4
   orientation: {fileID: 2219455956633839703}
   playerHeight: 2
@@ -2846,6 +2850,7 @@ MonoBehaviour:
   jumpKey: 32
   ringInv: 114
   itemInv: 9
+  interactKey: 102
 --- !u!65 &4331813902822468780
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2953,7 +2958,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4095
+    m_Bits: 12287
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8600000, guid: 6b99b27957a83444a8603fd6c610688e, type: 2}
   m_TargetDisplay: 0

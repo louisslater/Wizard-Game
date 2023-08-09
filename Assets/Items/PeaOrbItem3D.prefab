@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3768007522839220081}
   - component: {fileID: 2654905841647778638}
   - component: {fileID: 5030853447102327412}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PeaOrbItem3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7270792754167662837}
   - component: {fileID: 5007478342918638570}
   - component: {fileID: 8724075431197484298}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: AirforceItem3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

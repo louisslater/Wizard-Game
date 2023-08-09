@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 626712835325442033}
   - component: {fileID: -5917353815205202897}
   - component: {fileID: 8955342733718534902}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: CowboyEq3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
