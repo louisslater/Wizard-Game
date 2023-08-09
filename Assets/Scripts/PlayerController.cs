@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public GameObject ToolbarInventory;
 
     PlayerManager playerManager;
-    public DroppedItemSpawner droppedItemSpawner;
 
     float verticalLookRotation;
     public float moveSpeed;

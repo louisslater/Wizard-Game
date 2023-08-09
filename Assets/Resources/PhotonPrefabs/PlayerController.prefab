@@ -2104,6 +2104,18 @@ MonoBehaviour:
   - {fileID: 5872538082759761870}
   inventoryItemPrefab: {fileID: 6331154508871541134, guid: 407f3bf1643ce6a45bb289afb1b60e67, type: 3}
   inventoryManager: {fileID: 5098076720786966809}
+  objectToBeSpawned:
+  - {fileID: 4422115679167324640, guid: 2abda28c71ccb9342913d256baa7a56a, type: 3}
+  - {fileID: 5839763248279314148, guid: 2bca90ada5e72a14498e14e0d24b6fe9, type: 3}
+  - {fileID: 5822219921331134680, guid: 47b9d793966d0ea46b825d6edcc66dca, type: 3}
+  - {fileID: 6935468009801183440, guid: 78c47cde30021944cbaaca1b0f4bd1ed, type: 3}
+  - {fileID: 7922728241155352164, guid: ef906679460ec4542bf972c0c6d0a96d, type: 3}
+  invItems:
+  - {fileID: 11400000, guid: 55e44e7137585ab49a38a593715961a2, type: 2}
+  - {fileID: 11400000, guid: 2c1b99ed1e316b64e82ce19cf3b09a2d, type: 2}
+  - {fileID: 11400000, guid: b5db172de6d7918408a79c3ab11026db, type: 2}
+  - {fileID: 11400000, guid: 5fac058c1b2cecc4d8975b7c43320f19, type: 2}
+  - {fileID: 11400000, guid: 68deae2d8bb910a4daab5b7d1d43e785, type: 2}
 --- !u!1 &3770677782333273234
 GameObject:
   m_ObjectHideFlags: 0

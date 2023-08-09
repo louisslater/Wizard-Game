@@ -11,6 +11,12 @@ public class InventoryManager : MonoBehaviour
     int toolbarSlot = -1;
     [HideInInspector] public InventoryManager inventoryManager;
 
+    [SerializeField] private GameObject[] objectToBeSpawned;
+    [SerializeField] private InvItem[] invItems;
+    GameObject SpawnedObject;
+    GameObject orientation;
+    Rigidbody rb;
+
     private void Start()
     {
         ChangeToolbarSlot(0);
@@ -121,6 +127,13 @@ public class InventoryManager : MonoBehaviour
         {
             InvItem invItem = itemInSlot.invItem;
             itemInSlot.count--;
+            for (int i = 0; i < invItems.Length; i++)
+            {
+                if (invItems[i] == invItem)
+                {
+                    SpawnDroppedItem(i);
+                }
+            }
             if (itemInSlot.count <= 0)
             {
                 Destroy(itemInSlot.gameObject);
@@ -139,8 +152,12 @@ public class InventoryManager : MonoBehaviour
         selectedSlot = slotNumber;
     }
 
-    public int GiveSelectedSlot()
+    public void SpawnDroppedItem(int itemid)
     {
-        return selectedSlot;
+        orientation = GameObject.Find("Orientation");
+        SpawnedObject = Instantiate(objectToBeSpawned[itemid], orientation.transform.position, orientation.transform.rotation);
+        SpawnedObject.transform.Translate(0, 0, 0.7f);
+        rb = SpawnedObject.GetComponent<Rigidbody>();
+        rb.AddForce(SpawnedObject.transform.forward * 0.3f, ForceMode.Impulse);
     }
 }

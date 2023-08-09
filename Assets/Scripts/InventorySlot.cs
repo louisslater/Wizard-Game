@@ -9,7 +9,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler
     public Image image;
     public Color selectedColor, notSelectedColor;
     public int slotNumber;
-    public InventoryManager inventoryManager;
+    private InventoryManager inventoryManager;
 
     public void Awake()
     {
