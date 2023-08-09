@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2672611380578554792}
   - component: {fileID: 2280794843778263741}
   - component: {fileID: -6249946653525739819}
-  - component: {fileID: 4799121096456026526}
+  - component: {fileID: -7933826509845682554}
   m_Layer: 13
   m_Name: DaggerEq3D
   m_TagString: Untagged
@@ -139,7 +139,7 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4799121096456026526
+--- !u!114 &-7933826509845682554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,10 +148,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5822219921331134680}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: f3528e97b35ab75438d8ccd7dd97c399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1

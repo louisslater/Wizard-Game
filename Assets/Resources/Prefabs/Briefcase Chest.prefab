@@ -461,9 +461,9 @@ GameObject:
   - component: {fileID: 9040430613545446389}
   - component: {fileID: 7298670744388102322}
   - component: {fileID: 5772417451493785046}
-  - component: {fileID: 7674763890127748109}
   - component: {fileID: 3121700499889176198}
   - component: {fileID: 3198198282923669424}
+  - component: {fileID: 2299387693789287693}
   m_Layer: 0
   m_Name: Lid
   m_TagString: Untagged
@@ -575,29 +575,13 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 7674763890127748109}
+  - {fileID: 2299387693789287693}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &7674763890127748109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3199799866792102489}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!54 &3121700499889176198
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -650,6 +634,18 @@ HingeJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &2299387693789287693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3199799866792102489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3528e97b35ab75438d8ccd7dd97c399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3578199753129406373
 GameObject:
   m_ObjectHideFlags: 0
@@ -995,8 +991,8 @@ GameObject:
   - component: {fileID: 944363454587984168}
   - component: {fileID: 287625415841386900}
   - component: {fileID: 3225882823279759522}
-  - component: {fileID: 4750096475073067831}
   - component: {fileID: 1752475847515419865}
+  - component: {fileID: 3693160290880359494}
   m_Layer: 0
   m_Name: Base Chest
   m_TagString: Untagged
@@ -1108,29 +1104,13 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 0
+  OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 4750096475073067831}
+  - {fileID: 3693160290880359494}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4750096475073067831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4569899362189918760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!54 &1752475847515419865
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1147,6 +1127,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3693160290880359494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4569899362189918760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3528e97b35ab75438d8ccd7dd97c399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4768139906023653809
 GameObject:
   m_ObjectHideFlags: 0
