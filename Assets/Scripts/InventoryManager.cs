@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using System.IO;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -155,7 +157,8 @@ public class InventoryManager : MonoBehaviour
     public void SpawnDroppedItem(int itemid)
     {
         orientation = GameObject.Find("Orientation");
-        SpawnedObject = Instantiate(objectToBeSpawned[itemid], orientation.transform.position, orientation.transform.rotation);
+        string gameObjectName = objectToBeSpawned[itemid].name;
+        SpawnedObject = PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
         SpawnedObject.name = SpawnedObject.name.Replace("(Clone)", "").Trim();
         SpawnedObject.transform.Translate(0, 0, 0.7f);
         rb = SpawnedObject.GetComponent<Rigidbody>();
