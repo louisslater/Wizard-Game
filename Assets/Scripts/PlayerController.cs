@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         canMove = true;
         if(PV.IsMine)
         {
+            gameObject.tag = "Player";
+
             EquipItem(0);
 
             var FPSView = GameObject.Find("FPSView");
