@@ -2105,11 +2105,11 @@ MonoBehaviour:
   inventoryItemPrefab: {fileID: 6331154508871541134, guid: 407f3bf1643ce6a45bb289afb1b60e67, type: 3}
   inventoryManager: {fileID: 5098076720786966809}
   objectToBeSpawned:
-  - {fileID: 4422115679167324640, guid: 2abda28c71ccb9342913d256baa7a56a, type: 3}
-  - {fileID: 5839763248279314148, guid: 2bca90ada5e72a14498e14e0d24b6fe9, type: 3}
-  - {fileID: 5822219921331134680, guid: 47b9d793966d0ea46b825d6edcc66dca, type: 3}
-  - {fileID: 6935468009801183440, guid: 78c47cde30021944cbaaca1b0f4bd1ed, type: 3}
-  - {fileID: 7922728241155352164, guid: ef906679460ec4542bf972c0c6d0a96d, type: 3}
+  - {fileID: 4422115679167324640, guid: 5afc0f656a3b0194d8b5cda0827f45d3, type: 3}
+  - {fileID: 5839763248279314148, guid: 80e07d9d3d728dc468b422e6c5bd3f0b, type: 3}
+  - {fileID: 5822219921331134680, guid: 9953f991e106c3b419cc9c4f3ab2e2f3, type: 3}
+  - {fileID: 6935468009801183440, guid: cd5528c06bc00874d93a0719293f09b9, type: 3}
+  - {fileID: 7922728241155352164, guid: b8e2f656076d8dd4c9ad8b94d3f4f70b, type: 3}
   invItems:
   - {fileID: 11400000, guid: 55e44e7137585ab49a38a593715961a2, type: 2}
   - {fileID: 11400000, guid: 2c1b99ed1e316b64e82ce19cf3b09a2d, type: 2}
