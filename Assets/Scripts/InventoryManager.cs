@@ -159,7 +159,7 @@ public class InventoryManager : MonoBehaviour
         orientation = GameObject.Find("Orientation");
         string gameObjectName = objectToBeSpawned[itemid].name;
         SpawnedObject = PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
-        SpawnedObject.name = SpawnedObject.name.Replace("(Clone)", "").Trim();
+        //SpawnedObject.name = SpawnedObject.name.Replace("(Clone)", "").Trim();
         SpawnedObject.transform.Translate(0, 0, 0.7f);
         rb = SpawnedObject.GetComponent<Rigidbody>();
         rb.AddForce(SpawnedObject.transform.forward * 0.3f, ForceMode.Impulse);
