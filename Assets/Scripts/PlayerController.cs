@@ -164,9 +164,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
             if (Input.GetKeyDown(interactKey) && Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, hitrange, pickableLayerMask))
             {
-                if (hit.collider.gameObject.GetComponent<PUN2_RigidbodySync>().DestroyObject(hit.collider.gameObject))
+                if (hit.collider.gameObject.TryGetComponent(out PhotonView pv))
                 {
-                    inventoryManager.CheckForAddItem(hit.collider.gameObject);
+                    var itemObjectViewId = pv.ViewID;
+                    PV.RPC("RPC_PickupItem", RpcTarget.AllBuffered, itemObjectViewId);
                 }
             }
         }
@@ -176,6 +177,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             Die();
         }
     }
+
+    [PunRPC]
+    void RPC_PickupItem(int viewId)
+    {
+        var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
+        itemObjectView.TransferOwnership(PhotonNetwork.LocalPlayer);
+        inventoryManager.CheckForAddItem(itemObjectView.gameObject);
+        PhotonNetwork.Destroy(itemObjectView.gameObject);
+    }
+
     void Look()
     {
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);

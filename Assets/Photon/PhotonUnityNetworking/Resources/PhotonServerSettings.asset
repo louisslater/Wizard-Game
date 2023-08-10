@@ -42,6 +42,8 @@ MonoBehaviour:
   - RPC_TakeDamage
   - "RPC_S\xE1hoot"
   - RPC_Shoot
+  - RPC_DestroyObject
+  - RPC_PickupItem
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

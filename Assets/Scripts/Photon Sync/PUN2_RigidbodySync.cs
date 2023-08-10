@@ -66,14 +66,4 @@ public class PUN2_RigidbodySync : MonoBehaviourPun, IPunObservable
             }
         }
     }
-
-    public bool DestroyObject(GameObject gameObject)
-    {
-        if (!photonView.IsMine)
-        {
-            photonView.RequestOwnership();
-            PhotonNetwork.Destroy(gameObject);
-        }
-        return false;
-    }
 }
