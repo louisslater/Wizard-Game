@@ -162,12 +162,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 items[itemIndex].Use();
             }
 
-            if (Input.GetKeyDown(interactKey))
+            if (Input.GetKeyDown(interactKey) && Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, hitrange, pickableLayerMask))
             {
-                if (Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, hitrange, pickableLayerMask))
+                if (hit.collider.gameObject.GetComponent<PUN2_RigidbodySync>().DestroyObject(hit.collider.gameObject))
                 {
                     inventoryManager.CheckForAddItem(hit.collider.gameObject);
-                    PhotonNetwork.Destroy(hit.collider.gameObject);
                 }
             }
         }
