@@ -2104,18 +2104,6 @@ MonoBehaviour:
   - {fileID: 5872538082759761870}
   inventoryItemPrefab: {fileID: 6331154508871541134, guid: 407f3bf1643ce6a45bb289afb1b60e67, type: 3}
   inventoryManager: {fileID: 5098076720786966809}
-  objectToBeSpawned:
-  - {fileID: 4422115679167324640, guid: 5afc0f656a3b0194d8b5cda0827f45d3, type: 3}
-  - {fileID: 5839763248279314148, guid: 80e07d9d3d728dc468b422e6c5bd3f0b, type: 3}
-  - {fileID: 5822219921331134680, guid: 9953f991e106c3b419cc9c4f3ab2e2f3, type: 3}
-  - {fileID: 6935468009801183440, guid: cd5528c06bc00874d93a0719293f09b9, type: 3}
-  - {fileID: 7922728241155352164, guid: b8e2f656076d8dd4c9ad8b94d3f4f70b, type: 3}
-  invItems:
-  - {fileID: 11400000, guid: 55e44e7137585ab49a38a593715961a2, type: 2}
-  - {fileID: 11400000, guid: 2c1b99ed1e316b64e82ce19cf3b09a2d, type: 2}
-  - {fileID: 11400000, guid: b5db172de6d7918408a79c3ab11026db, type: 2}
-  - {fileID: 11400000, guid: 5fac058c1b2cecc4d8975b7c43320f19, type: 2}
-  - {fileID: 11400000, guid: 68deae2d8bb910a4daab5b7d1d43e785, type: 2}
 --- !u!1 &3770677782333273234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2251,6 +2239,82 @@ Transform:
   m_Father: {fileID: 4721481035599313141}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4057854778126170987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6483476360397738053}
+  - component: {fileID: 2334577059287154099}
+  - component: {fileID: 5296914828396310261}
+  m_Layer: 0
+  m_Name: Crosshair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6483476360397738053
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4057854778126170987}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5730836970176679441}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 50, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2334577059287154099
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4057854778126170987}
+  m_CullTransparentMesh: 1
+--- !u!114 &5296914828396310261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4057854778126170987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4094269301385262639
 GameObject:
   m_ObjectHideFlags: 0
@@ -2835,6 +2899,7 @@ MonoBehaviour:
   RingInventoryGroup: {fileID: 4765548464016278638}
   ItemInventoryGroup: {fileID: 2926711720552258460}
   ToolbarInventory: {fileID: 3770677782333273234}
+  crosshair: {fileID: 4057854778126170987}
   inventoryManager: {fileID: 5098076720786966809}
   moveSpeed: 4
   orientation: {fileID: 2219455956633839703}
@@ -3087,6 +3152,7 @@ RectTransform:
   - {fileID: 809660454265632018}
   - {fileID: 7308655777094901467}
   - {fileID: 5812357334167259407}
+  - {fileID: 6483476360397738053}
   m_Father: {fileID: 4721481035599313141}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

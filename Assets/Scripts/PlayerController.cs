@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public GameObject RingInventoryGroup;
     public GameObject ItemInventoryGroup;
     public GameObject ToolbarInventory;
+    public GameObject crosshair;
     [SerializeField] private InventoryManager inventoryManager;
 
     PlayerManager playerManager;
@@ -165,7 +167,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 if (Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, hitrange, pickableLayerMask))
                 {
                     inventoryManager.CheckForAddItem(hit.collider.gameObject);
-                    Destroy(hit.collider.gameObject);
+                    PhotonNetwork.Destroy(hit.collider.gameObject);
                 }
             }
         }
@@ -316,6 +318,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            crosshair.SetActive(true);
         }
         else
         {
@@ -324,6 +327,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            crosshair.SetActive(false);
         }
     }
     public void WhenItemInventoryButtonClicked()
@@ -337,6 +341,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+            crosshair.SetActive(true);
         }
         else
         {
@@ -344,6 +349,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+            crosshair.SetActive(false);
         }
     }
 

@@ -13,8 +13,8 @@ public class InventoryManager : MonoBehaviour
     int toolbarSlot = -1;
     [HideInInspector] public InventoryManager inventoryManager;
 
-    [SerializeField] private GameObject[] objectToBeSpawned;
-    [SerializeField] private InvItem[] invItems;
+    private GameObject[] objectToBeSpawned;
+    private InvItem[] invItems;
     GameObject SpawnedObject;
     GameObject orientation;
     Rigidbody rb;
@@ -26,6 +26,8 @@ public class InventoryManager : MonoBehaviour
         {
             inventorySlots[i].SetInventoryManager(inventoryManager);
         }
+        objectToBeSpawned = Resources.LoadAll<GameObject>("Prefabs/Items");
+        invItems = Resources.LoadAll<InvItem>("Prefabs/Items");
     }
 
     private void Update()
@@ -159,7 +161,6 @@ public class InventoryManager : MonoBehaviour
         orientation = GameObject.Find("Orientation");
         string gameObjectName = objectToBeSpawned[itemid].name;
         SpawnedObject = PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
-        SpawnedObject.name = SpawnedObject.name.Replace("(Clone)", "").Trim();
         SpawnedObject.transform.Translate(0, 0, 0.7f);
         rb = SpawnedObject.GetComponent<Rigidbody>();
         rb.AddForce(SpawnedObject.transform.forward * 0.3f, ForceMode.Impulse);
@@ -169,7 +170,7 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < objectToBeSpawned.Length; i++)
         {
-            if (objectToBeSpawned[i].name == gameObject.name)
+            if ((objectToBeSpawned[i].name + "(Clone)") == gameObject.name)
             {
                 AddItem(invItems[i]);
             }
