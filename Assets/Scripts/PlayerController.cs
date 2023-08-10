@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
+public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwnershipCallbacks
 {
     [SerializeField] GameObject cameraHolder;
 
@@ -167,7 +167,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 if (hit.collider.gameObject.TryGetComponent(out PhotonView pv))
                 {
                     var itemObjectViewId = pv.ViewID;
-                    PV.RPC("RPC_PickupItem", RpcTarget.AllBuffered, itemObjectViewId);
+                    itemObjectView.TransferOwnership(PhotonNetwork.LocalPlayer);
+                    PV.RPC("RPC_PickupItem", RpcTarget.All, itemObjectViewId);
                 }
             }
         }
@@ -184,7 +185,22 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
         itemObjectView.TransferOwnership(PhotonNetwork.LocalPlayer);
         inventoryManager.CheckForAddItem(itemObjectView.gameObject);
-        PhotonNetwork.Destroy(itemObjectView.gameObject);
+        Destroy(itemObjectView.gameObject);
+    }
+
+    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
+    {
+        throw new System.NotImplementedException();
     }
 
     void Look()
@@ -362,5 +378,4 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             crosshair.SetActive(false);
         }
     }
-
 }
