@@ -7,6 +7,9 @@ public class DemoScript : MonoBehaviour
     public InventoryManager inventoryManager;
     public InvItem[] itemsToPickup;
 
+    //The methods are attached to the different inventory test buttons on the left. The buttons are assigned to the 5 test item ids in the itemsToPickup[] array and the other 2 buttons are got the getting and using of items
+    // in inventoryManager.
+
     public void PickUpItem(int id)
     {
         bool result = inventoryManager.AddItem(itemsToPickup[id]);

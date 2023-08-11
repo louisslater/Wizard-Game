@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class InvItem : ScriptableObject
 {
+    //The replacement to Item object that we still havent deleted for some reason.
     public Sprite image;
     public ItemType type;
     public ActionType actiontype;

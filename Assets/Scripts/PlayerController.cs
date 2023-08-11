@@ -162,6 +162,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
                 items[itemIndex].Use();
             }
 
+            // Shoots a raycast and checks if the interaction key is down. Disables the object that is hit, deletes it for all players and adds the item into your inventory.
             if (Input.GetKeyDown(interactKey) && Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, hitrange, pickableLayerMask))
             {
                 if (hit.collider.gameObject.TryGetComponent(out PhotonView pv))
@@ -182,6 +183,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
     [PunRPC]
     void RPC_PickupItem(int viewId)
     {
+        //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
         var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
         itemObjectView.TransferOwnership(PhotonNetwork.LocalPlayer);
         inventoryManager.CheckForAddItem(itemObjectView.gameObject);
@@ -205,6 +207,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
 
     void Look()
     {
+        //Changes camera rotation
         transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
 
         verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
@@ -336,6 +339,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
 
     public void WhenRingInventoryButtonClicked()
     {
+        //Peforms all the actions needed when the specific inventory button is pressed (like disabling mouse and crosshair and etc).
         ItemInventoryGroup.SetActive(false);
         if (RingInventoryGroup.activeInHierarchy == true)
         {
@@ -358,6 +362,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
     }
     public void WhenItemInventoryButtonClicked()
     {
+        //Also peforms all the actions needed when the specific inventory button is pressed
         ToolbarInventory.SetActive(true);
         RingInventoryGroup.SetActive(false);
         if (ItemInventoryGroup.activeInHierarchy == true)

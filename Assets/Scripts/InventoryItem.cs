@@ -7,6 +7,8 @@ using TMPro;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    //This be the ol' script for the draggable item you see in the inventory with your own glassy eye, me-hearties.
+
     public Image image;
     public TextMeshProUGUI countText;
     [HideInInspector] public InventoryManager inventoryManager;
@@ -23,18 +25,21 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
     public void InitialiseItem(InvItem newItem)
     {
+        //Creates a new InventoryItem with a sprite.
         invItem = newItem;
         image.sprite = newItem.image;
         RefreshCount();
     }
     void Start()
     {
+        //Finds the canvas so it can be set as the parent as the InventoryItem is being dragged (so its on top of everything).
         PlayerCanvas = GameObject.Find("Canvas");
         draggin = false;
         hovering = false;
     }
     void Update()
     {
+        //If an inventory button is clicked when draggin then the InventoryItem is sent back to its original slot.
         if (draggin == true && (Input.GetKeyDown(ringInv) || Input.GetKeyDown(itemInv)))
         {
             PointerEventData eventData = new PointerEventData(EventSystem.current);
@@ -44,6 +49,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
             eventData.pointerDrag = null;
             return;
         }
+        //If the drop key is clicked while the mouse is "hovering" above the InventoryItem
         if (draggin == false && hovering && Input.GetKeyDown(dropItem))
         {
             InvItem receivedItem = inventoryManager.DropInvItem();
@@ -60,6 +66,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
     public void SetInventoryManager(InventoryManager inventoryManager)
     {
+        //Same as in InventorySlot, the InventoryItem assigns the inventoryManager as its own.
         this.inventoryManager = inventoryManager;
     }
 
@@ -91,6 +98,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
     public void RefreshCount()
     {
+        //Turns off the InventoryItem count if its more than 1, pretty simple really.
         countText.text = count.ToString();
         bool textActive = count > 1;
         countText.gameObject.SetActive(textActive);

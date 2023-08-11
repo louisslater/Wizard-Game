@@ -21,6 +21,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+        // Sets the first toolbar slot to active and loads all the items and their 3D gobjects.
         ChangeToolbarSlot(0);
         for (int i = 0; i < inventorySlots.Length; i++)
         {
@@ -32,6 +33,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Update()
     {
+        //Simply checks if the buttons to change slots are being pressed.
         if (Input.inputString != null)
         {
             bool isNumber = int.TryParse(Input.inputString, out int number);
@@ -44,6 +46,7 @@ public class InventoryManager : MonoBehaviour
 
     void ChangeToolbarSlot(int newValue)
     {
+        //Changes the colour to red of the selected toolbar slot
         if (toolbarSlot >= 0)
         {
             inventorySlots[toolbarSlot].Deselect();
@@ -60,6 +63,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddItem(InvItem invItem)
     {
+        //Process for adding/ creating a new item in your inventory, checks if there a stacakble item in inventory already and if not spawns it in.
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
@@ -85,6 +89,7 @@ public class InventoryManager : MonoBehaviour
     }
     void SpawnNewItem(InvItem invItem, InventorySlot slot)
     {
+        //Adds a new instance of InventoryItem (new draggable item spawned)
         GameObject newItemGo = Instantiate(inventoryItemPrefab, slot.transform);
         InventoryItem inventoryItem = newItemGo.GetComponent<InventoryItem>();
         inventoryItem.InitialiseItem(invItem);
@@ -93,6 +98,7 @@ public class InventoryManager : MonoBehaviour
 
     public InvItem GetSelectedItem(bool use)
     {
+        //Returns the item if its being "got", returns AND deletes the item if its being "used". Method only currently run in DemoScript (the inv buttons on the side)
         if (toolbarSlot < 0)
         {
             return null;
@@ -121,6 +127,7 @@ public class InventoryManager : MonoBehaviour
 
     public InvItem DropInvItem()
     {
+        //Similar method to the GetSelectedItem() but always deletes the item and spawns a 3D object too. Used in InventoryItem when items are being dropped.
         if (selectedSlot < 0)
         {
             return null;
@@ -153,11 +160,13 @@ public class InventoryManager : MonoBehaviour
 
     public void SetSelectedSlot(int slotNumber)
     {
+        //Each slot runs this method when the pointer hovers over it. This way InventoryManager knows from which slot in the inventorySlots array to delete/reduce the items from.
         selectedSlot = slotNumber;
     }
 
     public void SpawnDroppedItem(int itemid)
     {
+        //Method that creates a 3D object from a given item in objectToBeSpawned array. The itemid correlate to the invItems index, which are both ordered by alphabetical order.
         orientation = GameObject.Find("Orientation");
         string gameObjectName = objectToBeSpawned[itemid].name;
         SpawnedObject = PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
@@ -168,11 +177,13 @@ public class InventoryManager : MonoBehaviour
 
     public void CheckForAddItem(GameObject gameObject)
     {
+        //Checks the names of th raycast object against each 3D object in the objectToBeSpawned array. Uses the same index for invItems array too to create an InventoryItem.
         for (int i = 0; i < objectToBeSpawned.Length; i++)
         {
             if ((objectToBeSpawned[i].name + "(Clone)") == gameObject.name)
             {
                 AddItem(invItems[i]);
+                return;
             }
         }
     }
