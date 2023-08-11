@@ -167,7 +167,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             {
                 if (hit.collider.gameObject.TryGetComponent(out PhotonView pv))
                 {
-                    hit.collider.gameObject.SetActive(false);
                     var itemObjectViewId = pv.ViewID;
                     PV.RPC("RPC_PickupItem", RpcTarget.All, itemObjectViewId);
                 }
@@ -185,9 +184,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
         var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
+        itemObjectView.gameObject.SetActive(false);
         itemObjectView.TransferOwnership(PhotonNetwork.LocalPlayer);
         inventoryManager.CheckForAddItem(itemObjectView.gameObject);
-        PhotonNetwork.Destroy(itemObjectView.gameObject);
+        StartCoroutine(Waiting(3f, itemObjectView.gameObject));
     }
 
     void Look()
@@ -368,4 +368,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             crosshair.SetActive(false);
         }
     }
+
+    IEnumerator Waiting(float sec, GameObject itemObject)
+    {
+        // Waits for "sec" seconds
+        yield return new WaitForSeconds(sec);
+        PhotonNetwork.Destroy(itemObject);
+    }
+
 }
