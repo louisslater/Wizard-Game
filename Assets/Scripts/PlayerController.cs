@@ -190,21 +190,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         PhotonNetwork.Destroy(itemObjectView.gameObject);
     }
 
-    public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnOwnershipTransfered(PhotonView targetView, Player previousOwner)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnOwnershipTransferFailed(PhotonView targetView, Player senderOfFailedRequest)
-    {
-        throw new System.NotImplementedException();
-    }
-
     void Look()
     {
         //Changes camera rotation
