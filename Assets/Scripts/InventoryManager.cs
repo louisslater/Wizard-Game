@@ -172,7 +172,7 @@ public class InventoryManager : MonoBehaviour
         //Method that creates a 3D object from a given item in objectToBeSpawned array. The itemid correlate to the invItems index, which are both ordered by alphabetical order.
         orientation = GameObject.Find("Orientation");
         string gameObjectName = objectToBeSpawned[itemid].name;
-        SpawnedObject = PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
+        SpawnedObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
         SpawnedObject.transform.Translate(0, 0, 0.7f);
         rb = SpawnedObject.GetComponent<Rigidbody>();
         rb.AddForce(SpawnedObject.transform.forward * 0.3f, ForceMode.Impulse);
