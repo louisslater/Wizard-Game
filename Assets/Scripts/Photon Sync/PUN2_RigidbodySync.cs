@@ -11,7 +11,7 @@ public class PUN2_RigidbodySync : MonoBehaviourPun, IPunObservable
     Vector3 velocity;
     Vector3 angularVelocity;
 
-    bool valuesReceived = false;
+    //bool valuesReceived = false;              I disabled this bool coz it doesn't sync destruction if object is moving.
 
     // Start is called before the first frame update
     void Start()
@@ -37,14 +37,14 @@ public class PUN2_RigidbodySync : MonoBehaviourPun, IPunObservable
             velocity = (Vector3)stream.ReceiveNext();
             angularVelocity = (Vector3)stream.ReceiveNext();
 
-            valuesReceived = true;
+            //valuesReceived = true;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.IsMine && valuesReceived)
+        if (!photonView.IsMine)// && valuesReceived)
         {
             //Update Object position and Rigidbody parameters
             transform.position = Vector3.Lerp(transform.position, latestPos, Time.deltaTime * 5);

@@ -166,6 +166,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
             {
                 if (hit.collider.gameObject.TryGetComponent(out PhotonView pv))
                 {
+                    hit.collider.gameObject.SetActive(false);
                     var itemObjectViewId = pv.ViewID;
                     PV.RPC("RPC_PickupItem", RpcTarget.All, itemObjectViewId);
                 }
