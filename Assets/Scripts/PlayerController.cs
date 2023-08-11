@@ -167,7 +167,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
                 if (hit.collider.gameObject.TryGetComponent(out PhotonView pv))
                 {
                     var itemObjectViewId = pv.ViewID;
-                    itemObjectView.TransferOwnership(PhotonNetwork.LocalPlayer);
                     PV.RPC("RPC_PickupItem", RpcTarget.All, itemObjectViewId);
                 }
             }
@@ -185,7 +184,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable, IPunOwne
         var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
         itemObjectView.TransferOwnership(PhotonNetwork.LocalPlayer);
         inventoryManager.CheckForAddItem(itemObjectView.gameObject);
-        Destroy(itemObjectView.gameObject);
+        PhotonNetwork.Destroy(itemObjectView.gameObject);
     }
 
     public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
