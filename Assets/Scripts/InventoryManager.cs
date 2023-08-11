@@ -140,9 +140,12 @@ public class InventoryManager : MonoBehaviour
             itemInSlot.count--;
             for (int i = 0; i < invItems.Length; i++)
             {
+                Debug.Log(invItem + " Item to compare");
+                Debug.Log(invItems[i] + " Compared Item");
                 if (invItems[i] == invItem)
                 {
                     SpawnDroppedItem(i);
+                    break;
                 }
             }
             if (itemInSlot.count <= 0)
