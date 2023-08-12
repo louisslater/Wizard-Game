@@ -15,10 +15,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     [SerializeField] Item[] items;
 
     [SerializeField] private LayerMask pickableLayerMask;
-    [SerializeField] [Min(1)] private float hitrange = 3;
-    [SerializeField] float fadeInSpeed = 3;
-    [SerializeField] float fadeOutSpeed = 1;
-    [SerializeField] float fadeWait = 2;
+    [SerializeField] [Min(1f)] private float hitrange = 3;
+    [SerializeField] [Min(0.1f)] float fadeInSpeed = 3;
+    [SerializeField] [Min(0.1f)] float fadeOutSpeed = 1;
+    [SerializeField] [Min(0f)] float fadeWait = 2;
     private RaycastHit hit;
 
     int itemIndex;
