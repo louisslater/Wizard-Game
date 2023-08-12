@@ -2121,6 +2121,7 @@ MonoBehaviour:
   - {fileID: 3218687675887196771}
   - {fileID: 7956054894000419218}
   inventoryItemPrefab: {fileID: 6331154508871541134, guid: 407f3bf1643ce6a45bb289afb1b60e67, type: 3}
+  playerController: {fileID: 205472264806426341}
   inventoryManager: {fileID: 5098076720786966809}
 --- !u!1 &3770677782333273234
 GameObject:
@@ -2241,7 +2242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 2136676668897191141}
-  fadeSpeed: 0
 --- !u!225 &2136676668897191141
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2918,7 +2918,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   hitrange: 2
-  fadeSpeed: 0.5
+  fadeInSpeed: 3
+  fadeOutSpeed: 1
+  fadeWait: 2
   RingInventoryGroup: {fileID: 4765548464016278638}
   ItemInventoryGroup: {fileID: 2926711720552258460}
   ToolbarInventory: {fileID: 3770677782333273234}

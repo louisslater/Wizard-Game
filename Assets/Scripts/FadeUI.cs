@@ -9,34 +9,43 @@ public class FadeUI : MonoBehaviour
     private float fadeOutSpeed;
     bool fadeIn = false;
     bool fadeOut = false;
+    bool inventoryOpen = false;
 
     public void ShowUI(float fadeVal)
     {
         fadeIn = true;
         fadeInSpeed = fadeVal;
+        inventoryOpen = true;
     }
 
     public void HideUI(float fadeVal)
     {
         fadeOut = true;
         fadeOutSpeed = fadeVal;
+        inventoryOpen = false;
     }
 
     public void ShowThenHideUI(float sec, float fadeInVal, float fadeOutVal)
     {
-        fadeIn = true;
-        fadeOut = false;
-        fadeInSpeed = fadeInVal;
-        fadeOutSpeed = fadeOutVal;
-        StartCoroutine(Waiting(sec));
+        if (!inventoryOpen)
+        {
+            fadeIn = true;
+            fadeOut = false;
+            fadeInSpeed = fadeInVal;
+            fadeOutSpeed = fadeOutVal;
+            StartCoroutine(Waiting(sec));
+        }
     }
 
     IEnumerator Waiting(float sec)
     {
         // Waits for "sec" seconds
         yield return new WaitForSeconds(sec);
-        fadeOut = true;
-        fadeIn = false;
+        if (!inventoryOpen)
+        {
+            fadeOut = true;
+            fadeIn = false;
+        }
     }
 
     private void Update()

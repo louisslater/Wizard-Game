@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     [SerializeField] [Min(1)] private float hitrange = 3;
     [SerializeField] float fadeInSpeed = 3;
     [SerializeField] float fadeOutSpeed = 1;
+    [SerializeField] float fadeWait = 2;
     private RaycastHit hit;
 
     int itemIndex;
@@ -193,7 +194,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         itemObjectView.TransferOwnership(playerID);
         if (PhotonNetwork.LocalPlayer.ActorNumber == playerID)
         {
-            StartCoroutine(Waiting(1f, itemObjectView.gameObject));
+            StartCoroutine(Waiting(2f, itemObjectView.gameObject));
         }
     }
 
@@ -214,7 +215,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (_index == previousItemIndex)
             return;
 
-        toolbarUI.ShowThenHideUI(1f, fadeInSpeed, fadeOutSpeed);
+        toolbarUI.ShowThenHideUI(fadeWait, fadeInSpeed, fadeOutSpeed);
 
         itemIndex = _index;
 
@@ -387,4 +388,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         PhotonNetwork.Destroy(itemObject);
     }
 
+    public void FadeToolbar()
+    {
+        if (!ItemInventoryGroup.activeInHierarchy)
+        {
+            toolbarUI.HideUI(fadeOutSpeed);
+        }
+    }
 }

@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
     public int maxStackItems = 99;
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
+    public PlayerController playerController;
     int selectedSlot = -1;
     int toolbarSlot = -1;
     [HideInInspector] public InventoryManager inventoryManager;
@@ -82,6 +83,10 @@ public class InventoryManager : MonoBehaviour
             if (itemInSlot == null)
             {
                 SpawnNewItem(invItem, slot);
+                if (i <= 2)
+                {
+                    playerController.FadeToolbar();
+                }
                 return true;
             }
         }
