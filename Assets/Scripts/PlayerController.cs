@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     [SerializeField] private LayerMask pickableLayerMask;
     [SerializeField] [Min(1)] private float hitrange = 3;
+    [SerializeField] float fadeInSpeed = 3;
+    [SerializeField] float fadeOutSpeed = 1;
     private RaycastHit hit;
 
     int itemIndex;
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public GameObject RingInventoryGroup;
     public GameObject ItemInventoryGroup;
     public GameObject ToolbarInventory;
+    private FadeUI toolbarUI;
     public GameObject crosshair;
     [SerializeField] private InventoryManager inventoryManager;
 
@@ -78,8 +81,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             gameObject.tag = "Player";
 
-            EquipItem(0);
-
+            toolbarUI = ToolbarInventory.GetComponentInChildren<FadeUI>();
             var FPSView = GameObject.Find("FPSView");
             FPSView.gameObject.layer = LayerMask.NameToLayer("FPSView");
 
@@ -88,6 +90,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             {
                 child.gameObject.layer = LayerMask.NameToLayer("FPSView");
             }
+            EquipItem(0);
         }
         else
         {
@@ -211,6 +214,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (_index == previousItemIndex)
             return;
 
+        toolbarUI.ShowThenHideUI(1f, fadeInSpeed, fadeOutSpeed);
 
         itemIndex = _index;
 
@@ -334,6 +338,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             RingInventoryGroup.SetActive(false);
             ToolbarInventory.SetActive(true);
+            toolbarUI.HideUI(fadeOutSpeed);
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -358,6 +363,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             inventoryManager.SetSelectedSlot(-1);
             ItemInventoryGroup.SetActive(false);
+            toolbarUI.HideUI(fadeOutSpeed);
             canMove = true;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -366,6 +372,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         else
         {
             ItemInventoryGroup.SetActive(true);
+            toolbarUI.ShowUI(100);
             canMove = false;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
