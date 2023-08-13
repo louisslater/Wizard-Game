@@ -13,6 +13,7 @@ public class FadeUI : MonoBehaviour
 
     public void ShowUI(float fadeVal)
     {
+        //Fades in the UI
         fadeIn = true;
         fadeInSpeed = fadeVal;
         inventoryOpen = true;
@@ -20,6 +21,7 @@ public class FadeUI : MonoBehaviour
 
     public void HideUI(float fadeVal)
     {
+        //Fades out the UI
         fadeOut = true;
         fadeOutSpeed = fadeVal;
         inventoryOpen = false;
@@ -27,6 +29,7 @@ public class FadeUI : MonoBehaviour
 
     public void ShowThenHideUI(float sec, float fadeInVal, float fadeOutVal)
     {
+        //Fade in the UI, then fades it out after a set time. Function is disabled if the inventory is open (so the items don't fade away).
         if (!inventoryOpen)
         {
             fadeIn = true;

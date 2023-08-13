@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     public PlayerController playerController;
     int selectedSlot = -1;
     int toolbarSlot = -1;
+    int previousValue;
     [HideInInspector] public InventoryManager inventoryManager;
 
     private GameObject[] objectToBeSpawned;
@@ -45,7 +46,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void ChangeToolbarSlot(int newValue)
+    public void ChangeToolbarSlot(int newValue)
     {
         //Changes the colour to red of the selected toolbar slot
         if (toolbarSlot >= 0)
@@ -54,10 +55,9 @@ public class InventoryManager : MonoBehaviour
         }
         if (toolbarSlot == newValue)
         {
-            selectedSlot = -1;
+            toolbarSlot = -1;
             return;
         }
-
         inventorySlots[newValue].Select();
         toolbarSlot = newValue;
     }
