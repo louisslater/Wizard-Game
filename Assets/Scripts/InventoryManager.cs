@@ -19,31 +19,22 @@ public class InventoryManager : MonoBehaviour
     private InvItem[] invItems;
     GameObject SpawnedObject;
     GameObject orientation;
+    GameObject equippedItemPosition;
+    GameObject EquippedObject;
     Rigidbody rb;
 
     private void Start()
     {
         // Sets the first toolbar slot to active and loads all the items and their 3D gobjects.
-        ChangeToolbarSlot(0);
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             inventorySlots[i].SetInventoryManager(inventoryManager);
         }
         objectToBeSpawned = Resources.LoadAll<GameObject>("Prefabs/Items");
         invItems = Resources.LoadAll<InvItem>("Prefabs/Items");
-    }
-
-    private void Update()
-    {
-        //Simply checks if the buttons to change slots are being pressed.
-        if (Input.inputString != null)
-        {
-            bool isNumber = int.TryParse(Input.inputString, out int number);
-            if (isNumber && number > 3 && number < 7)
-            {
-                ChangeToolbarSlot(number - 4);
-            }
-        }
+        orientation = GameObject.Find("Orientation");
+        equippedItemPosition = GameObject.Find("EquippedItemPosition");
+        ChangeToolbarSlot(0);
     }
 
     public void ChangeToolbarSlot(int newValue)
@@ -56,10 +47,26 @@ public class InventoryManager : MonoBehaviour
         if (toolbarSlot == newValue)
         {
             toolbarSlot = -1;
+            ShowEquippedItem(-1);
             return;
         }
         inventorySlots[newValue].Select();
         toolbarSlot = newValue;
+        InventoryItem itemInSlot = inventorySlots[newValue].GetComponentInChildren<InventoryItem>();
+        Debug.Log(itemInSlot);
+        for (int j = 0; j < invItems.Length; j++)
+        {
+            if (itemInSlot == null)
+            {
+                ShowEquippedItem(-1);
+                break;
+            }
+            if (invItems[j] == itemInSlot.invItem)
+            {
+                ShowEquippedItem(j);
+                break;
+            }
+        }
     }
 
     public bool AddItem(InvItem invItem)
@@ -86,6 +93,14 @@ public class InventoryManager : MonoBehaviour
                 if (i <= 2)
                 {
                     playerController.FadeToolbar();
+                    for (int j = 0; j < invItems.Length; j++)
+                    {
+                        if (invItems[j] == invItem)
+                        {
+                            ShowEquippedItem(j);
+                            break;
+                        }
+                    }
                 }
                 return true;
             }
@@ -145,8 +160,6 @@ public class InventoryManager : MonoBehaviour
             itemInSlot.count--;
             for (int i = 0; i < invItems.Length; i++)
             {
-                Debug.Log(invItem + " Item to compare");
-                Debug.Log(invItems[i] + " Compared Item");
                 if (invItems[i] == invItem)
                 {
                     SpawnDroppedItem(i);
@@ -175,7 +188,6 @@ public class InventoryManager : MonoBehaviour
     public void SpawnDroppedItem(int itemid)
     {
         //Method that creates a 3D object from a given item in objectToBeSpawned array. The itemid correlate to the invItems index, which are both ordered by alphabetical order.
-        orientation = GameObject.Find("Orientation");
         string gameObjectName = objectToBeSpawned[itemid].name;
         SpawnedObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
         SpawnedObject.transform.Translate(0, 0, 0.7f);
@@ -194,5 +206,26 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void ShowEquippedItem(int itemid)
+    {
+        if (itemid == -1)
+        {
+            if (EquippedObject != null)
+            {
+                PhotonNetwork.Destroy(EquippedObject);
+            }
+            return;
+        }
+        string gameObjectName = objectToBeSpawned[itemid].name;
+        if (EquippedObject != null)
+        {
+            PhotonNetwork.Destroy(EquippedObject);
+        }
+        EquippedObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gameObjectName), equippedItemPosition.transform.position, equippedItemPosition.transform.rotation);
+        EquippedObject.transform.SetParent(equippedItemPosition.transform);
+        Destroy(EquippedObject.GetComponent<Rigidbody>());
+        Destroy(EquippedObject.GetComponent<Collider>());
     }
 }

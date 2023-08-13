@@ -129,6 +129,17 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             Look();
             SpeedControl();
 
+            if (Input.inputString != null)
+            {
+                bool isNumber = int.TryParse(Input.inputString, out int number);
+                if (isNumber && number > 3 && number < 7)
+                {
+                    inventoryManager.ChangeToolbarSlot(number - 4);
+                    toolbarUI.ShowThenHideUI(fadeWait, fadeInSpeed, fadeOutSpeed);
+                }
+            }
+
+            /*
             for (int i = 0; i < items.Length; i++)
             {
                 if (Input.GetKeyDown((i + 1).ToString()))
@@ -165,6 +176,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             {
                 items[itemIndex].Use();
             }
+            */
 
             // Shoots a raycast and checks if the interaction key is down. Disables the object that is hit, deletes it for all players and adds the item into your inventory.
             if (Input.GetKeyDown(interactKey) && Physics.Raycast(cameraHolder.transform.position, cameraHolder.transform.forward, out hit, hitrange, pickableLayerMask))
@@ -214,8 +226,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         if (_index == previousItemIndex)
             return;
-
-        toolbarUI.ShowThenHideUI(fadeWait, fadeInSpeed, fadeOutSpeed);
 
         itemIndex = _index;
 
