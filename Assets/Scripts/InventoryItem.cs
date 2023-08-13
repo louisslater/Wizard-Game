@@ -52,15 +52,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         //If the drop key is clicked while the mouse is "hovering" above the InventoryItem
         if (draggin == false && hovering && Input.GetKeyDown(dropItem))
         {
-            InvItem receivedItem = inventoryManager.DropInvItem();
-            if (receivedItem != null)
-            {
-                Debug.Log("Dropped " + receivedItem);
-            }
-            else
-            {
-                Debug.Log("Not Dropped");
-            }
+            inventoryManager.DropInvItem();
         }
     }
 

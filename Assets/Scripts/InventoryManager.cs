@@ -20,7 +20,7 @@ public class InventoryManager : MonoBehaviour
     GameObject SpawnedObject;
     GameObject orientation;
     GameObject equippedItemPosition;
-    GameObject EquippedObject;
+    GameObject[] equippedObjects;
     Rigidbody rb;
 
     private void Start()
@@ -31,9 +31,22 @@ public class InventoryManager : MonoBehaviour
             inventorySlots[i].SetInventoryManager(inventoryManager);
         }
         objectToBeSpawned = Resources.LoadAll<GameObject>("Prefabs/Items");
+        equippedObjects = objectToBeSpawned;
         invItems = Resources.LoadAll<InvItem>("Prefabs/Items");
         orientation = GameObject.Find("Orientation");
         equippedItemPosition = GameObject.Find("EquippedItemPosition");
+
+        int j = 0;
+        foreach (GameObject gobject in objectToBeSpawned)
+        {
+            equippedObjects[j] = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gobject.name), equippedItemPosition.transform.position, equippedItemPosition.transform.rotation);
+            equippedObjects[j].transform.SetParent(equippedItemPosition.transform);
+            equippedObjects[j].SetActive(false);
+            Debug.Log("Created equipment  " + equippedObjects[j]);
+            Destroy(equippedObjects[j].GetComponent<Rigidbody>());
+            Destroy(equippedObjects[j].GetComponent<Collider>());
+            ++j;
+        }
         ChangeToolbarSlot(0);
     }
 
@@ -47,26 +60,14 @@ public class InventoryManager : MonoBehaviour
         if (toolbarSlot == newValue)
         {
             toolbarSlot = -1;
-            ShowEquippedItem(-1);
+            ShowEquippedItem();
             return;
         }
         inventorySlots[newValue].Select();
         toolbarSlot = newValue;
         InventoryItem itemInSlot = inventorySlots[newValue].GetComponentInChildren<InventoryItem>();
+        ShowEquippedItem();
         Debug.Log(itemInSlot);
-        for (int j = 0; j < invItems.Length; j++)
-        {
-            if (itemInSlot == null)
-            {
-                ShowEquippedItem(-1);
-                break;
-            }
-            if (invItems[j] == itemInSlot.invItem)
-            {
-                ShowEquippedItem(j);
-                break;
-            }
-        }
     }
 
     public bool AddItem(InvItem invItem)
@@ -93,6 +94,7 @@ public class InventoryManager : MonoBehaviour
                 if (i <= 2)
                 {
                     playerController.FadeToolbar();
+                    ShowEquippedItem();
                 }
                 return true;
             }
@@ -137,12 +139,12 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
 
-    public InvItem DropInvItem()
+    public void DropInvItem()
     {
         //Similar method to the GetSelectedItem() but always deletes the item and spawns a 3D object too. Used in InventoryItem when items are being dropped.
         if (selectedSlot < 0)
         {
-            return null;
+            return;
         }
         InventorySlot slot = inventorySlots[selectedSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
@@ -161,14 +163,16 @@ public class InventoryManager : MonoBehaviour
             if (itemInSlot.count <= 0)
             {
                 Destroy(itemInSlot.gameObject);
+                Debug.Log("Equipping item now!");
+                Debug.Log(itemInSlot.gameObject);
+                StartCoroutine(WaitOneFrame());
             }
             else
             {
                 itemInSlot.RefreshCount();
             }
-            return invItem;
+            return;
         }
-        return null;
     }
 
     public void SetSelectedSlot(int slotNumber)
@@ -180,7 +184,7 @@ public class InventoryManager : MonoBehaviour
     public void SpawnDroppedItem(int itemid)
     {
         //Method that creates a 3D object from a given item in objectToBeSpawned array. The itemid correlate to the invItems index, which are both ordered by alphabetical order.
-        string gameObjectName = objectToBeSpawned[itemid].name;
+        string gameObjectName = objectToBeSpawned[itemid].name.Replace("(Clone)", "").Trim();
         SpawnedObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
         SpawnedObject.transform.Translate(0, 0, 0.7f);
         rb = SpawnedObject.GetComponent<Rigidbody>();
@@ -192,7 +196,7 @@ public class InventoryManager : MonoBehaviour
         //Checks the names of th raycast object against each 3D object in the objectToBeSpawned array. Uses the same index for invItems array too to create an InventoryItem.
         for (int i = 0; i < objectToBeSpawned.Length; i++)
         {
-            if ((objectToBeSpawned[i].name + "(Clone)") == gameObject.name)
+            if ((objectToBeSpawned[i].name) == gameObject.name)
             {
                 AddItem(invItems[i]);
                 return;
@@ -200,24 +204,41 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void ShowEquippedItem(int itemid)
+    public void ShowEquippedItem()
     {
-        if (itemid == -1)
+        if (toolbarSlot <= -1)
         {
-            if (EquippedObject != null)
+            foreach (GameObject gobject in equippedObjects)
             {
-                PhotonNetwork.Destroy(EquippedObject);
+                gobject.SetActive(false);
             }
             return;
         }
-        string gameObjectName = objectToBeSpawned[itemid].name;
-        if (EquippedObject != null)
+
+        InventorySlot slot = inventorySlots[toolbarSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        if (itemInSlot == null || itemInSlot.gameObject == null)
         {
-            PhotonNetwork.Destroy(EquippedObject);
+            foreach (GameObject gobject in equippedObjects)
+            {
+                gobject.SetActive(false);
+            }
+            return;
         }
-        EquippedObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gameObjectName), equippedItemPosition.transform.position, equippedItemPosition.transform.rotation);
-        EquippedObject.transform.SetParent(equippedItemPosition.transform);
-        Destroy(EquippedObject.GetComponent<Rigidbody>());
-        Destroy(EquippedObject.GetComponent<Collider>());
+        InvItem invItem = itemInSlot.invItem;
+        for (int i = 0; i < invItems.Length; i++)
+        {
+            equippedObjects[i].SetActive(false);
+            if (invItems[i] == invItem)
+            {
+                Debug.Log("Equipping item " + equippedObjects[i]);
+                equippedObjects[i].SetActive(true);
+            }
+        }
+    }
+    IEnumerator WaitOneFrame()
+    {
+        yield return 0;
+        ShowEquippedItem();
     }
 }
