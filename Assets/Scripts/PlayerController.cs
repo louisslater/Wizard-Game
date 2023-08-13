@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     int itemIndex;
     int previousItemIndex = -1;
+    int selectedSlot = 0;
+    bool itemIsEquipped;
 
     Rigidbody rb;
 
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public KeyCode ringInv = KeyCode.R;
     public KeyCode itemInv = KeyCode.Tab;
     public KeyCode interactKey = KeyCode.F;
+    public KeyCode dropHeldEquipment = KeyCode.G;
 
     void Awake()
     {
@@ -135,8 +138,15 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 if (isNumber && number > 3 && number < 7)
                 {
                     inventoryManager.ChangeToolbarSlot(number - 4);
+                    selectedSlot = number - 4;
                     toolbarUI.ShowThenHideUI(fadeWait, fadeInSpeed, fadeOutSpeed);
                 }
+            }
+
+            if (Input.GetKeyDown(dropHeldEquipment) && itemIsEquipped)
+            {
+                inventoryManager.SetSelectedSlot(selectedSlot);
+                inventoryManager.DropInvItem();
             }
 
             /*
@@ -404,5 +414,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             toolbarUI.HideUI(fadeOutSpeed);
         }
+    }
+
+    public void ItemIsEquipped(bool equipped)
+    {
+        itemIsEquipped = equipped;
     }
 }

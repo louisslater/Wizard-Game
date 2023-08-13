@@ -60,11 +60,13 @@ public class InventoryManager : MonoBehaviour
         if (toolbarSlot == newValue)
         {
             toolbarSlot = -1;
+            playerController.ItemIsEquipped(false);
             ShowEquippedItem();
             return;
         }
         inventorySlots[newValue].Select();
         toolbarSlot = newValue;
+        playerController.ItemIsEquipped(true);
         InventoryItem itemInSlot = inventorySlots[newValue].GetComponentInChildren<InventoryItem>();
         ShowEquippedItem();
         Debug.Log(itemInSlot);
