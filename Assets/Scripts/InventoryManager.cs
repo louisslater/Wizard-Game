@@ -206,6 +206,7 @@ public class InventoryManager : MonoBehaviour
 
     public void ShowEquippedItem()
     {
+        // Turns off all the instantiated equipment and turns on the only one needed. Turns them all off if there is no item.
         if (toolbarSlot <= -1)
         {
             foreach (GameObject gobject in equippedObjects)

@@ -47,6 +47,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
             image.raycastTarget = true;
             draggin = false;
             eventData.pointerDrag = null;
+            inventoryManager.ShowEquippedItem();
             return;
         }
         //If the drop key is clicked while the mouse is "hovering" above the InventoryItem
@@ -85,6 +86,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
             transform.SetParent(parentAfterDrag);
             image.raycastTarget = true;
             draggin = false;
+            inventoryManager.ShowEquippedItem();
         }
     }
 
