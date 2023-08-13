@@ -93,14 +93,6 @@ public class InventoryManager : MonoBehaviour
                 if (i <= 2)
                 {
                     playerController.FadeToolbar();
-                    for (int j = 0; j < invItems.Length; j++)
-                    {
-                        if (invItems[j] == invItem)
-                        {
-                            ShowEquippedItem(j);
-                            break;
-                        }
-                    }
                 }
                 return true;
             }
