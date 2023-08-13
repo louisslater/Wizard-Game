@@ -22,6 +22,7 @@ public class InventoryManager : MonoBehaviour
     GameObject equippedItemPosition;
     GameObject[] equippedObjects;
     Rigidbody rb;
+    PhotonView PV;
 
     private void Start()
     {
@@ -35,16 +36,20 @@ public class InventoryManager : MonoBehaviour
         invItems = Resources.LoadAll<InvItem>("Prefabs/Items");
         orientation = GameObject.Find("Orientation");
         equippedItemPosition = GameObject.Find("EquippedItemPosition");
+        PV = playerController.GetComponent<PhotonView>();
 
         int j = 0;
         foreach (GameObject gobject in objectToBeSpawned)
         {
             equippedObjects[j] = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gobject.name), equippedItemPosition.transform.position, equippedItemPosition.transform.rotation);
             equippedObjects[j].transform.SetParent(equippedItemPosition.transform);
-            equippedObjects[j].SetActive(false);
-            Debug.Log("Created equipment  " + equippedObjects[j]);
             Destroy(equippedObjects[j].GetComponent<Rigidbody>());
             Destroy(equippedObjects[j].GetComponent<Collider>());
+
+            //equippedObjects[j].TryGetComponent(out PhotonView pv);
+            //var itemObjectViewId = pv.ViewID;
+            //var playerID = PhotonNetwork.LocalPlayer.ActorNumber;
+            //PV.RPC("RPC_SetUpHeldEquipment", RpcTarget.All, itemObjectViewId, playerID);
             ++j;
         }
         ChangeToolbarSlot(0);
@@ -165,8 +170,6 @@ public class InventoryManager : MonoBehaviour
             if (itemInSlot.count <= 0)
             {
                 Destroy(itemInSlot.gameObject);
-                Debug.Log("Equipping item now!");
-                Debug.Log(itemInSlot.gameObject);
                 StartCoroutine(WaitOneFrame());
             }
             else
@@ -214,6 +217,9 @@ public class InventoryManager : MonoBehaviour
             foreach (GameObject gobject in equippedObjects)
             {
                 gobject.SetActive(false);
+                gobject.TryGetComponent(out PhotonView pv);
+                var itemObjectViewId = pv.ViewID;
+                PV.RPC("RPC_DisableHeldEquipment", RpcTarget.All, itemObjectViewId);
             }
             return;
         }
@@ -225,6 +231,9 @@ public class InventoryManager : MonoBehaviour
             foreach (GameObject gobject in equippedObjects)
             {
                 gobject.SetActive(false);
+                gobject.TryGetComponent(out PhotonView pv);
+                var itemObjectViewId = pv.ViewID;
+                PV.RPC("RPC_DisableHeldEquipment", RpcTarget.All, itemObjectViewId);
             }
             return;
         }
@@ -235,7 +244,9 @@ public class InventoryManager : MonoBehaviour
             if (invItems[i] == invItem)
             {
                 Debug.Log("Equipping item " + equippedObjects[i]);
-                equippedObjects[i].SetActive(true);
+                equippedObjects[i].TryGetComponent(out PhotonView pv);
+                var itemObjectViewId = pv.ViewID;
+                PV.RPC("RPC_EnableHeldEquipment", RpcTarget.All, itemObjectViewId);
             }
         }
     }

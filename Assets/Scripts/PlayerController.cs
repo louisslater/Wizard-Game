@@ -420,4 +420,42 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         itemIsEquipped = equipped;
     }
+
+    [PunRPC]
+    void RPC_DisableHeldEquipment(int viewId)
+    {
+        //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
+        var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
+        itemObjectView.gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    void RPC_EnableHeldEquipment(int viewId)
+    {
+        //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
+        var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
+        itemObjectView.gameObject.SetActive(true);
+    }
+
+    [PunRPC]
+    void RPC_SetUpHeldEquipment(int viewId, int playerId)
+    {
+        //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
+        var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
+        var fellowPlayerControllerView = PhotonNetwork.GetPhotonView(playerId);
+        var fellowPlayerController = fellowPlayerControllerView.GetComponentInParent<PlayerController>();
+        itemObjectView.gameObject.SetActive(false);
+        GameObject[] allGameObjects = fellowPlayerController.GetComponentsInChildren<GameObject>();
+        GameObject equippedItemPosition = allGameObjects[0];
+        foreach (GameObject gobject in allGameObjects)
+        {
+            if (gobject.name == "EquippedItemPosition")
+            {
+                equippedItemPosition = gobject;
+            }
+        }
+        itemObjectView.gameObject.transform.SetParent(equippedItemPosition.transform);
+        Destroy(equippedItemPosition.GetComponent<Rigidbody>());
+        Destroy(equippedItemPosition.GetComponent<Collider>());
+    }
 }
