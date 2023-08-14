@@ -42,14 +42,13 @@ public class InventoryManager : MonoBehaviour
         foreach (GameObject gobject in objectToBeSpawned)
         {
             equippedObjects[j] = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gobject.name), equippedItemPosition.transform.position, equippedItemPosition.transform.rotation);
-            equippedObjects[j].transform.SetParent(equippedItemPosition.transform);
-            Destroy(equippedObjects[j].GetComponent<Rigidbody>());
-            Destroy(equippedObjects[j].GetComponent<Collider>());
+            equippedObjects[j].GetComponent<SetEquipmentAsChild>().DestroyComponents();
 
-            //equippedObjects[j].TryGetComponent(out PhotonView pv);
-            //var itemObjectViewId = pv.ViewID;
-            //var playerID = PhotonNetwork.LocalPlayer.ActorNumber;
-            //PV.RPC("RPC_SetUpHeldEquipment", RpcTarget.All, itemObjectViewId, playerID);
+            equippedObjects[j].TryGetComponent(out PhotonView pv);
+            var itemObjectViewId = pv.ViewID;
+            var playerID = PhotonNetwork.LocalPlayer.ActorNumber;
+            equippedObjects[j].GetComponent<SetEquipmentAsChild>().CallRPCSetAsChild();
+            PV.RPC("RPC_SetUpHeldEquipment", RpcTarget.All, itemObjectViewId);
             ++j;
         }
         ChangeToolbarSlot(0);

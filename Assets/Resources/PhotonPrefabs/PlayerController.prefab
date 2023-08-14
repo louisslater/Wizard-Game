@@ -2919,21 +2919,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraHolder: {fileID: 427847158125597343}
   mouseSensitivity: 5
-  items:
-  - {fileID: 7786994132160307472}
-  - {fileID: 3167110414436547803}
   pickableLayerMask:
     serializedVersion: 2
     m_Bits: 8192
   hitrange: 2
-  fadeInSpeed: 3
-  fadeOutSpeed: 1
-  fadeWait: 2
+  items:
+  - {fileID: 7786994132160307472}
+  - {fileID: 3167110414436547803}
   RingInventoryGroup: {fileID: 4765548464016278638}
   ItemInventoryGroup: {fileID: 2926711720552258460}
   ToolbarInventory: {fileID: 3770677782333273234}
-  crosshair: {fileID: 4057854778126170987}
   inventoryManager: {fileID: 5098076720786966809}
+  fadeInSpeed: 3
+  fadeOutSpeed: 1
+  fadeWait: 2
+  crosshair: {fileID: 4057854778126170987}
   moveSpeed: 4
   orientation: {fileID: 2219455956633839703}
   playerHeight: 2

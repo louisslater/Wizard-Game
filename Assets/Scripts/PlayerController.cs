@@ -8,41 +8,35 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
+    [Header("Camera")]
     [SerializeField] GameObject cameraHolder;
 
     [SerializeField] float mouseSensitivity;
 
-    [SerializeField] Item[] items;
-
+    [Header("Inventory")]
     [SerializeField] private LayerMask pickableLayerMask;
     [SerializeField] [Min(1f)] private float hitrange = 3;
-    [SerializeField] [Min(0.1f)] float fadeInSpeed = 3;
-    [SerializeField] [Min(0.1f)] float fadeOutSpeed = 1;
-    [SerializeField] [Min(0f)] float fadeWait = 2;
     private RaycastHit hit;
-
+    [SerializeField] Item[] items;
     int itemIndex;
     int previousItemIndex = -1;
     int selectedSlot = 0;
     bool itemIsEquipped;
-
-    Rigidbody rb;
-
-    PhotonView PV;
-
-    const float maxHealth = 100f;
-    float currentHealth = maxHealth;
     public GameObject RingInventoryGroup;
     public GameObject ItemInventoryGroup;
     public GameObject ToolbarInventory;
-    private FadeUI toolbarUI;
-    public GameObject crosshair;
     [SerializeField] private InventoryManager inventoryManager;
 
-    PlayerManager playerManager;
+    [Header("UI")]
+    [SerializeField] [Min(0.1f)] float fadeInSpeed = 3;
+    [SerializeField] [Min(0.1f)] float fadeOutSpeed = 1;
+    [SerializeField] [Min(0f)] float fadeWait = 2;
+    private FadeUI toolbarUI;
+    public GameObject crosshair;
 
-    float verticalLookRotation;
+    [Header("Physicsy stuff")]
     public float moveSpeed;
+    float verticalLookRotation;
     public Transform orientation;
     float horizontalInput;
     float verticalInput;
@@ -57,12 +51,21 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public float airMultiplier;
     bool readyToJump;
     bool canMove;
+    PlayerManager playerManager;
+    Rigidbody rb;
+    PhotonView PV;
 
+    [Header("Key Inputs")]
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode ringInv = KeyCode.R;
     public KeyCode itemInv = KeyCode.Tab;
     public KeyCode interactKey = KeyCode.F;
     public KeyCode dropHeldEquipment = KeyCode.G;
+
+    [Header("Other")]
+    const float maxHealth = 100f;
+    float currentHealth = maxHealth;
+
 
     void Awake()
     {
@@ -438,24 +441,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     }
 
     [PunRPC]
-    void RPC_SetUpHeldEquipment(int viewId, int playerId)
+    void RPC_SetUpHeldEquipment(int viewId)
     {
         //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
         var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
-        var fellowPlayerControllerView = PhotonNetwork.GetPhotonView(playerId);
-        var fellowPlayerController = fellowPlayerControllerView.GetComponentInParent<PlayerController>();
         itemObjectView.gameObject.SetActive(false);
-        GameObject[] allGameObjects = fellowPlayerController.GetComponentsInChildren<GameObject>();
-        GameObject equippedItemPosition = allGameObjects[0];
-        foreach (GameObject gobject in allGameObjects)
-        {
-            if (gobject.name == "EquippedItemPosition")
-            {
-                equippedItemPosition = gobject;
-            }
-        }
-        itemObjectView.gameObject.transform.SetParent(equippedItemPosition.transform);
-        Destroy(equippedItemPosition.GetComponent<Rigidbody>());
-        Destroy(equippedItemPosition.GetComponent<Collider>());
     }
 }

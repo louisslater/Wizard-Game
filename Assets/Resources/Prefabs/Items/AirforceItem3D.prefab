@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8724075431197484298}
   - component: {fileID: -5144066591472546137}
   - component: {fileID: 4676418030409634065}
+  - component: {fileID: -7330378503171418582}
   m_Layer: 13
   m_Name: AirforceItem3D
   m_TagString: Untagged
@@ -149,5 +150,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3528e97b35ab75438d8ccd7dd97c399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-7330378503171418582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4422115679167324640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fac194d7be75c3648a8b7714c5e7d47d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

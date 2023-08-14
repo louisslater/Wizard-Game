@@ -46,6 +46,8 @@ MonoBehaviour:
   - RPC_PickupItem
   - RPC_DisableHeldEquipment
   - RPC_EnableHeldEquipment
+  - RPC_SetUpHeldEquipment
+  - RPC_SetAsChild
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
