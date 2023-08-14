@@ -14,9 +14,9 @@ public class SetEquipmentAsChild : MonoBehaviourPun
 
     public void DestroyComponents()
     {
+        Destroy(GetComponent<PUN2_RigidbodySync>());
         Destroy(GetComponent<Rigidbody>());
         Destroy(GetComponent<Collider>());
-        Destroy(GetComponent<PUN2_RigidbodySync>());
     }
 
     public void CallRPCSetAsChild()
