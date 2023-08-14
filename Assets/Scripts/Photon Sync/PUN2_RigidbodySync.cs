@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PUN2_RigidbodySync : MonoBehaviourPun, IPunObservable
 {
 
