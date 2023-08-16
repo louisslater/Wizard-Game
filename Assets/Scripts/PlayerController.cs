@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     [SerializeField] private LayerMask pickableLayerMask;
     [SerializeField] [Min(1f)] private float hitrange = 3;
     private RaycastHit hit;
-    [SerializeField] Item[] items;
+    [SerializeField] GameObject[] items;
     int itemIndex;
     int previousItemIndex = -1;
     int selectedSlot = 0;
@@ -235,18 +235,20 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
     }
 
-    void EquipItem(int _index)
+    public void EquipItem(int _index)
     {
         if (_index == previousItemIndex)
             return;
 
+        foreach (GameObject gobject in items)
+        {
+            gobject.SetActive(false);
+        }
         itemIndex = _index;
 
-        items[itemIndex].itemGameObject.SetActive(true);
-
-        if(previousItemIndex != -1)
+        if (_index != -1)
         {
-            items[previousItemIndex].itemGameObject.SetActive(false);
+            items[itemIndex].SetActive(true);
         }
 
         previousItemIndex = itemIndex;

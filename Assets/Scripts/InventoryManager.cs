@@ -12,17 +12,13 @@ public class InventoryManager : MonoBehaviour
     public PlayerController playerController;
     int selectedSlot = -1;
     int toolbarSlot = -1;
-    int previousValue;
     [HideInInspector] public InventoryManager inventoryManager;
 
     private GameObject[] objectToBeSpawned;
     private InvItem[] invItems;
     GameObject SpawnedObject;
     GameObject orientation;
-    GameObject equippedItemPosition;
-    GameObject[] equippedObjects;
     Rigidbody rb;
-    PhotonView PV;
 
     private void Start()
     {
@@ -32,25 +28,8 @@ public class InventoryManager : MonoBehaviour
             inventorySlots[i].SetInventoryManager(inventoryManager);
         }
         objectToBeSpawned = Resources.LoadAll<GameObject>("Prefabs/Items");
-        equippedObjects = objectToBeSpawned;
         invItems = Resources.LoadAll<InvItem>("Prefabs/Items");
         orientation = GameObject.Find("Orientation");
-        equippedItemPosition = GameObject.Find("EquippedItemPosition");
-        PV = playerController.GetComponent<PhotonView>();
-
-        int j = 0;
-        foreach (GameObject gobject in objectToBeSpawned)
-        {
-            equippedObjects[j] = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gobject.name), equippedItemPosition.transform.position, equippedItemPosition.transform.rotation);
-            equippedObjects[j].GetComponent<SetEquipmentAsChild>().DestroyComponents();
-
-            equippedObjects[j].TryGetComponent(out PhotonView pv);
-            var itemObjectViewId = pv.ViewID;
-            var playerID = PhotonNetwork.LocalPlayer.ActorNumber;
-            equippedObjects[j].GetComponent<SetEquipmentAsChild>().CallRPCSetAsChild();
-            PV.RPC("RPC_SetUpHeldEquipment", RpcTarget.All, itemObjectViewId);
-            ++j;
-        }
         ChangeToolbarSlot(0);
     }
 
@@ -188,7 +167,7 @@ public class InventoryManager : MonoBehaviour
     public void SpawnDroppedItem(int itemid)
     {
         //Method that creates a 3D object from a given item in objectToBeSpawned array. The itemid correlate to the invItems index, which are both ordered by alphabetical order.
-        string gameObjectName = objectToBeSpawned[itemid].name.Replace("(Clone)", "").Trim();
+        string gameObjectName = objectToBeSpawned[itemid].name;
         SpawnedObject = PhotonNetwork.Instantiate(Path.Combine("Prefabs", "Items", gameObjectName), orientation.transform.position, orientation.transform.rotation);
         SpawnedObject.transform.Translate(0, 0, 0.7f);
         rb = SpawnedObject.GetComponent<Rigidbody>();
@@ -200,7 +179,7 @@ public class InventoryManager : MonoBehaviour
         //Checks the names of th raycast object against each 3D object in the objectToBeSpawned array. Uses the same index for invItems array too to create an InventoryItem.
         for (int i = 0; i < objectToBeSpawned.Length; i++)
         {
-            if ((objectToBeSpawned[i].name) == gameObject.name)
+            if ((objectToBeSpawned[i].name) == gameObject.name.Replace("(Clone)", "").Trim())
             {
                 AddItem(invItems[i]);
                 return;
@@ -210,42 +189,28 @@ public class InventoryManager : MonoBehaviour
 
     public void ShowEquippedItem()
     {
-        // Turns off all the instantiated equipment and turns on the only one needed. Turns them all off if there is no item.
         if (toolbarSlot <= -1)
         {
-            foreach (GameObject gobject in equippedObjects)
-            {
-                gobject.SetActive(false);
-                gobject.TryGetComponent(out PhotonView pv);
-                var itemObjectViewId = pv.ViewID;
-                PV.RPC("RPC_DisableHeldEquipment", RpcTarget.All, itemObjectViewId);
-            }
+            playerController.EquipItem(-1);
             return;
         }
 
         InventorySlot slot = inventorySlots[toolbarSlot];
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
         if (itemInSlot == null || itemInSlot.gameObject == null)
         {
-            foreach (GameObject gobject in equippedObjects)
-            {
-                gobject.SetActive(false);
-                gobject.TryGetComponent(out PhotonView pv);
-                var itemObjectViewId = pv.ViewID;
-                PV.RPC("RPC_DisableHeldEquipment", RpcTarget.All, itemObjectViewId);
-            }
+            playerController.EquipItem(-1);
             return;
         }
+
         InvItem invItem = itemInSlot.invItem;
         for (int i = 0; i < invItems.Length; i++)
         {
-            equippedObjects[i].SetActive(false);
             if (invItems[i] == invItem)
             {
-                Debug.Log("Equipping item " + equippedObjects[i]);
-                equippedObjects[i].TryGetComponent(out PhotonView pv);
-                var itemObjectViewId = pv.ViewID;
-                PV.RPC("RPC_EnableHeldEquipment", RpcTarget.All, itemObjectViewId);
+                playerController.EquipItem(i);
+                return;
             }
         }
     }
