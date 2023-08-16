@@ -57,8 +57,13 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddItem(InvItem invItem)
     {
+        int minSlot = 3;
+        if (invItem.type == ItemType.Equipment)
+        {
+            minSlot = 0;
+        }
         //Process for adding/ creating a new item in your inventory, checks if there a stacakble item in inventory already and if not spawns it in.
-        for (int i = 0; i < inventorySlots.Length; i++)
+        for (int i = minSlot; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
@@ -69,14 +74,14 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
         }
-        for (int i = 0; i < inventorySlots.Length; i++)
+        for (int i = minSlot; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if (itemInSlot == null)
             {
                 SpawnNewItem(invItem, slot);
-                if (i <= 2)
+                if (i < 3)
                 {
                     playerController.FadeToolbar();
                     ShowEquippedItem();

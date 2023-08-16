@@ -30,6 +30,12 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         image.sprite = newItem.image;
         RefreshCount();
     }
+
+    public InvItem ReturnInvItem()
+    {
+        return invItem;
+    }
+
     void Start()
     {
         //Finds the canvas so it can be set as the parent as the InventoryItem is being dragged (so its on top of everything).

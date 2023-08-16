@@ -32,9 +32,21 @@ public class InventorySlot : MonoBehaviour, IDropHandler, IPointerEnterHandler
         //Checks if the dragging InventoryItem can be dropped onto the slot. If it can then the slot becomes the parent of the Inventory item and the item moves positions.
         if (transform.childCount == 0)
         {
-            GameObject dropped = eventData.pointerDrag;
-            InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
-            inventoryItem.parentAfterDrag = transform;
+            if (slotNumber < 3)
+            {
+                GameObject dropped = eventData.pointerDrag;
+                InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
+                if (inventoryItem.invItem.type == ItemType.Equipment)
+                {
+                    inventoryItem.parentAfterDrag = transform;
+                }
+            }
+            else
+            {
+                GameObject dropped = eventData.pointerDrag;
+                InventoryItem inventoryItem = dropped.GetComponent<InventoryItem>();
+                inventoryItem.parentAfterDrag = transform;
+            }
         }
     }
 
