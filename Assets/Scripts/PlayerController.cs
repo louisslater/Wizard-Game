@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public float jumpForce;
     public float jumpCooldown;
     public float jumpPenalty;
+    float timeUntilJump = 0;
     public float airMultiplier;
     bool readyToJump;
     bool canMove;
@@ -128,6 +129,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if (timeUntilJump <= 0)
+        {
+            ResetJump();
+            timeUntilJump = jumpCooldown;
+        }
+        timeUntilJump -= Time.deltaTime;
 
         if (canMove)
         {
@@ -219,7 +227,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         itemObjectView.TransferOwnership(playerID);
         if (PhotonNetwork.LocalPlayer.ActorNumber == playerID)
         {
-            StartCoroutine(Waiting(2f, itemObjectView.gameObject));
+            StartCoroutine(WaitingToDestroy(2f, itemObjectView.gameObject));
         }
     }
 
@@ -317,7 +325,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         {
             readyToJump = false;
             Jump();
-            Invoke(nameof(ResetJump), jumpCooldown);
+            //Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
     
@@ -354,6 +362,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public void SetGroundedState(bool _grounded)
     {
         grounded = _grounded;
+    }
+
+    public void StartJumpCooldown()
+    {
+        timeUntilJump = jumpCooldown;
+        readyToJump = false;
     }
 
     public void WhenRingInventoryButtonClicked()
@@ -406,7 +420,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         }
     }
 
-    IEnumerator Waiting(float sec, GameObject itemObject)
+    IEnumerator WaitingToDestroy(float sec, GameObject itemObject)
     {
         // Waits for "sec" seconds
         yield return new WaitForSeconds(sec);
@@ -424,29 +438,5 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     public void ItemIsEquipped(bool equipped)
     {
         itemIsEquipped = equipped;
-    }
-
-    [PunRPC]
-    void RPC_DisableHeldEquipment(int viewId)
-    {
-        //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
-        var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
-        itemObjectView.gameObject.SetActive(false);
-    }
-
-    [PunRPC]
-    void RPC_EnableHeldEquipment(int viewId)
-    {
-        //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
-        var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
-        itemObjectView.gameObject.SetActive(true);
-    }
-
-    [PunRPC]
-    void RPC_SetUpHeldEquipment(int viewId)
-    {
-        //Sends a message to everybody dat the 3D gobject is deleted and adds the item into the inventory.
-        var itemObjectView = PhotonNetwork.GetPhotonView(viewId);
-        itemObjectView.gameObject.SetActive(false);
     }
 }
