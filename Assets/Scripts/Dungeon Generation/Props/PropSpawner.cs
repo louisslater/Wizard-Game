@@ -21,9 +21,15 @@ public class PropSpawner : MonoBehaviour
     [SerializeField]
     Vector3 spawnRotationMax;
 
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube((spawnPositionMin + spawnPositionMax) / 2, new Vector3(Mathf.Abs(spawnPositionMin.x - spawnPositionMax.x), Mathf.Abs(spawnPositionMin.y - spawnPositionMax.y), Mathf.Abs(spawnPositionMin.z - spawnPositionMax.z)));
+    }
+
     public void SpawnProps()
     {
-        PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", "Briefcase Chest"), GetRandomSpawnPosition(spawnPositionMin, spawnPositionMax), GetRandomSpawnRotation(spawnRotationMin, spawnRotationMax));
+        PhotonNetwork.InstantiateRoomObject(Path.Combine("Prefabs", props[GetRandomPropIndex()].name), GetRandomSpawnPosition(spawnPositionMin, spawnPositionMax), GetRandomSpawnRotation(spawnRotationMin, spawnRotationMax));
     }
 
     int GetRandomPropIndex()

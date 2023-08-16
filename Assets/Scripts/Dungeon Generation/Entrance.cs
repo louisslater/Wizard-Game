@@ -11,7 +11,7 @@ public class Entrance : MonoBehaviour
 
     public GameObject door;
     public int roomlink { get; set; }
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Vector3 forward = transform.TransformDirection(Vector3.forward) * 2;
