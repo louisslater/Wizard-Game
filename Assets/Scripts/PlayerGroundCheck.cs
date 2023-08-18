@@ -17,9 +17,12 @@ public class PlayerGroundCheck : MonoBehaviour
         {
             return;
         }
-        playerController.StartJumpCooldown();
+        if (!playerController.IsGrounded())
+        {
+            playerController.StartJumpCooldown();
+            Debug.Log("Hit the floor");
+        }
         playerController.SetGroundedState(true);
-        Debug.Log("Hit the floor");
     }
 
     void OnTriggerExit(Collider other)
@@ -46,7 +49,6 @@ public class PlayerGroundCheck : MonoBehaviour
         {
             return;
         }
-        playerController.StartJumpCooldown();
         playerController.SetGroundedState(true);
     }
 
