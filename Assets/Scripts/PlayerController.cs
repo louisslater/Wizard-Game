@@ -206,8 +206,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
                 {
                     var itemObjectViewId = pv.ViewID;
                     var playerID = PhotonNetwork.LocalPlayer.ActorNumber;
-                    inventoryManager.CheckForAddItem(hit.collider.gameObject);
-                    PV.RPC("RPC_PickupItem", RpcTarget.All, itemObjectViewId, playerID);
+                    inventoryManager.CheckForAddItem(hit.collider.gameObject, playerID, itemObjectViewId);
+                    //PV.RPC("RPC_PickupItem", RpcTarget.All, itemObjectViewId, playerID);
                 }
             }
         }

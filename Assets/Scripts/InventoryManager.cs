@@ -19,6 +19,7 @@ public class InventoryManager : MonoBehaviour
     GameObject SpawnedObject;
     GameObject orientation;
     Rigidbody rb;
+    PhotonView PV;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class InventoryManager : MonoBehaviour
         objectToBeSpawned = Resources.LoadAll<GameObject>("Prefabs/Items");
         invItems = Resources.LoadAll<InvItem>("Prefabs/Items");
         orientation = GameObject.Find("Orientation");
+        PV = playerController.GetComponentInChildren<PhotonView>();
         ChangeToolbarSlot(0);
     }
 
@@ -179,14 +181,18 @@ public class InventoryManager : MonoBehaviour
         rb.AddForce(SpawnedObject.transform.forward * 0.3f, ForceMode.Impulse);
     }
 
-    public void CheckForAddItem(GameObject gameObject)
+    public void CheckForAddItem(GameObject gameObject, int playerID, int itemObjectViewId)
     {
         //Checks the names of th raycast object against each 3D object in the objectToBeSpawned array. Uses the same index for invItems array too to create an InventoryItem.
         for (int i = 0; i < objectToBeSpawned.Length; i++)
         {
             if ((objectToBeSpawned[i].name) == gameObject.name.Replace("(Clone)", "").Trim())
             {
-                AddItem(invItems[i]);
+                if (AddItem(invItems[i]))
+                {
+                    Debug.Log("Destroying object " + itemObjectViewId);
+                    PV.RPC("RPC_PickupItem", RpcTarget.All, itemObjectViewId, playerID);
+                }
                 return;
             }
         }
