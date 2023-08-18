@@ -128,12 +128,14 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         if (grounded)
             rb.drag = groundDrag;
         else
+        {
             rb.drag = 0;
+        }
 
         if (timeUntilJump <= 0)
         {
-            ResetJump();
             timeUntilJump = jumpCooldown;
+            ResetJump();
         }
         timeUntilJump -= Time.deltaTime;
 
