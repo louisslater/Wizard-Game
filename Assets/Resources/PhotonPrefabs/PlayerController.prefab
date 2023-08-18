@@ -2953,6 +2953,7 @@ MonoBehaviour:
   jumpCooldown: 0.3
   jumpPenalty: 0.5
   airMultiplier: 0.1
+  canMove: 0
   jumpKey: 32
   ringInv: 114
   itemInv: 9

@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     float timeUntilJump = 0;
     public float airMultiplier;
     bool readyToJump;
-    bool canMove;
+    [HideInInspector] public bool canMove;
     PlayerManager playerManager;
     Rigidbody rb;
     PhotonView PV;

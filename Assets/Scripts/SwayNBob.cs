@@ -61,6 +61,14 @@ public class SwayNBob : MonoBehaviour
 
     void GetInput()
     {
+        if (playerController.canMove == false)
+        {
+            walkInput.x = 0;
+            walkInput.y = 0;
+            lookInput.x = 0;
+            lookInput.y = 0;
+            return;
+        }
         walkInput.x = Input.GetAxis("Horizontal");
         walkInput.y = Input.GetAxis("Vertical");
         walkInput = walkInput.normalized;
