@@ -364,6 +364,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
         grounded = _grounded;
     }
 
+    public bool IsGrounded()
+    {
+        return grounded;
+    }
+
     public void StartJumpCooldown()
     {
         timeUntilJump = jumpCooldown;
