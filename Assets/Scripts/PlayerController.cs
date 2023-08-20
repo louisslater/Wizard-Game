@@ -134,7 +134,6 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
         if (timeUntilJump <= 0)
         {
-            timeUntilJump = jumpCooldown;
             ResetJump();
         }
         timeUntilJump -= Time.deltaTime;
@@ -325,7 +324,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
-            readyToJump = false;
+            StartJumpCooldown();
             Jump();
             //Invoke(nameof(ResetJump), jumpCooldown);
         }
