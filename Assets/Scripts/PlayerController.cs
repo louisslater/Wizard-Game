@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 {
     [Header("Camera")]
     [SerializeField] GameObject cameraHolder;
-
+    public Headbob camAnim;
     [SerializeField] float mouseSensitivity;
 
     [Header("Inventory")]
@@ -324,7 +324,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
-            StartJumpCooldown();
+            timeUntilJump = jumpCooldown;
+            readyToJump = false;
             Jump();
             //Invoke(nameof(ResetJump), jumpCooldown);
         }
@@ -374,6 +375,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
     {
         timeUntilJump = jumpCooldown;
         readyToJump = false;
+        camAnim.PlayerHeadbobLanded();
     }
 
     public void WhenRingInventoryButtonClicked()

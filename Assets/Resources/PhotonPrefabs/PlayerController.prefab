@@ -186,6 +186,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4840063258527482222}
+  - component: {fileID: 4800240250912359936}
+  - component: {fileID: 71809924797305640}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -210,6 +212,40 @@ Transform:
   m_Father: {fileID: 4721481035599313141}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4800240250912359936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427847158125597343}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6ca78efab4ccd4fbbe5b2eb05410a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camAnim: {fileID: 71809924797305640}
+  playerController: {fileID: 205472264806426341}
+--- !u!95 &71809924797305640
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427847158125597343}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6878450128696f24c95970b65fdf9f6e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &446983492555915315
 GameObject:
   m_ObjectHideFlags: 0
@@ -2887,6 +2923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraHolder: {fileID: 427847158125597343}
+  camAnim: {fileID: 8970337694729432298}
   mouseSensitivity: 5
   pickableLayerMask:
     serializedVersion: 2
@@ -2999,6 +3036,8 @@ GameObject:
   - component: {fileID: 4721481035968083763}
   - component: {fileID: 4721481035968083772}
   - component: {fileID: 4979237834312520502}
+  - component: {fileID: 7697147581373937075}
+  - component: {fileID: 8970337694729432298}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -3107,6 +3146,40 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!95 &7697147581373937075
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721481035968083774}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c9a24152f327e9c4aba72acc19aae6c1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8970337694729432298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4721481035968083774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6ca78efab4ccd4fbbe5b2eb05410a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camAnim: {fileID: 7697147581373937075}
+  playerController: {fileID: 205472264806426341}
 --- !u!1 &4765548464016278638
 GameObject:
   m_ObjectHideFlags: 0
@@ -4397,7 +4470,7 @@ MonoBehaviour:
   speedCurve: 0.5
   travelLimit: {x: 0.025, y: 0.015, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
-  bobExaggeration: 1
+  bobExaggeration: 0.6
   multiplier: {x: 1, y: 1, z: 1}
 --- !u!1 &7698696373183936009
 GameObject:
